@@ -1,0 +1,47 @@
+.mainchat{
+    width:500px;
+    height:500px;
+    background-color: blueviolet;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+}
+
+.chatwrapper{
+    width:100%;
+    height: auto;
+    position: absolute;
+    margin-top: 10px;
+}
+
+.your_msg{
+    max-width:50%;
+    height: auto;
+    padding: 5px;
+    background-color: bisque;
+    position: relative;
+    top:0;
+    left: 0px;
+}
+
+.rec_msg{
+    max-width:50%;
+    height: auto;
+    padding: 5px;
+    background-color: black;
+    color: white;
+    position: relative;
+    top:0;
+    right: 0px;
+}
+
+.type_msg{
+    width:500px;
+    background-color: aqua;
+}
+
+.send_btn{
+    width:100px;
+    height:50px;
+    background-color: red;
+}
