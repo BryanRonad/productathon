@@ -7,6 +7,8 @@ import GoogleSignIn from "./components/GoogleSignIn";
 import CouncSignup from "./pages/CouncSignup";
 import CouncSignin from "./pages/CouncSignin";
 import CouncVerify from "./pages/CouncVerify";
+import { PublicRoute } from "./auth/PublicRoute";
+import Chat from "./components/Chat";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import CouncDashboard from "./pages/CouncDashboard";
 import UserDashboard from "./pages/UserDashboard";
@@ -22,6 +24,7 @@ function App() {
 						<Route exact path="/counsellor/signup" element={<CouncSignup />} />
 						<Route exact path="/counsellor/signin" element={<CouncSignin />} />
 						<Route exact path="/counsellor/verify" element={<CouncVerify />} />
+						<Route exact path="/chat" element={<Chat />} />
 						<Route exact path="/counsellor/dash" element={<PrivateRoute />}>
 							<Route
 								exact
