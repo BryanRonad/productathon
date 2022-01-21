@@ -50,11 +50,7 @@ const Navbar = () => {
 										</MenuItem>
 										<MenuItem>Profile</MenuItem>
 									</MenuList>
-								</Menu>
-								<Button bgColor="red.100">
-									Emergency SOS
-									<Switch colorScheme="red" ml="5px" id="email-alerts" />
-								</Button>
+								</Menu>								
 								<Button
 									colorScheme="orange"
 									variant="solid"
