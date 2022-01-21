@@ -4,6 +4,8 @@ import { Routes, Route } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import HomePage from "./pages/HomePage";
 import GoogleSignIn from "./components/GoogleSignIn";
+import { PublicRoute } from "./auth/PublicRoute";
+import { PrivateRoute } from "./auth/PrivateRoute";
 
 function App() {
   return (
@@ -11,8 +13,10 @@ function App() {
       <div className="App">
         <Layout>
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="signup" element={<GoogleSignIn />} />
+            <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/signup" element={<PrivateRoute />}>
+              <Route exact path="/signup" element={<GoogleSignIn />} />
+            </Route>
           </Routes>
         </Layout>
       </div>
