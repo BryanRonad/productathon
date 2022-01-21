@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
-	const { currentUser } = useAuth();
+	const { currentUser, logout } = useAuth();
 	console.log(currentUser);
 
 	return (
@@ -31,7 +31,9 @@ const Navbar = () => {
 					<HStack display="flex" alignItems="center">
 						<HStack color="brand.500">
 							{currentUser ? (
-								<Button variant="solid">Logout</Button>
+								<Button variant="solid" onClick={() => logout()}>
+									Logout
+								</Button>
 							) : (
 								<Link to="counsellor/signin">
 									<Button variant="solid">Login as counsellor</Button>

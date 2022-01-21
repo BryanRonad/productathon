@@ -22,8 +22,12 @@ function App() {
 						<Route exact path="/counsellor/signup" element={<CouncSignup />} />
 						<Route exact path="/counsellor/signin" element={<CouncSignin />} />
 						<Route exact path="/counsellor/verify" element={<CouncVerify />} />
-						<Route exact path="/counsellor/dash" element={<CouncDashboard />}>
-							<Route exact path="/counsellor/dash" element={<CouncVerify />} />
+						<Route exact path="/counsellor/dash" element={<PrivateRoute />}>
+							<Route
+								exact
+								path="/counsellor/dash"
+								element={<CouncDashboard />}
+							/>
 						</Route>
 					</Routes>
 				</Layout>
