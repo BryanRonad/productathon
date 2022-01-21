@@ -10,6 +10,7 @@ import CouncVerify from "./pages/CouncVerify";
 import { PublicRoute } from "./auth/PublicRoute";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import CouncDashboard from "./pages/CouncDashboard";
+import UserDashboard from "./pages/UserDashboard";
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 								element={<CouncDashboard />}
 							/>
 						</Route>
+						<Route path="/user/dash" element={<UserDashboard />}></Route>
 					</Routes>
 				</Layout>
 			</div>
