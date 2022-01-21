@@ -2,12 +2,15 @@ import {
 	Button,
 	chakra,
 	Flex,
+	FormControl,
+	FormLabel,
 	HStack,
 	Icon,
 	Menu,
 	MenuButton,
 	MenuItem,
 	MenuList,
+	Switch,
 	VisuallyHidden,
 } from "@chakra-ui/react";
 import React from "react";
@@ -48,6 +51,10 @@ const Navbar = () => {
 										<MenuItem>Profile</MenuItem>
 									</MenuList>
 								</Menu>
+								<Button bgColor="red.100">
+									Emergency SOS
+									<Switch colorScheme="red" ml="5px" id="email-alerts" />
+								</Button>
 								<Button
 									colorScheme="orange"
 									variant="solid"
