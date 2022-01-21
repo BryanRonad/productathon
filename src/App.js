@@ -16,6 +16,10 @@ function App() {
             <Route exact path="/" element={<HomePage />} />
             <Route exact path="/signup" element={<PrivateRoute />}>
               <Route exact path="/signup" element={<GoogleSignIn />} />
+              <Route path="signup/:id" element={<GoogleSignIn />} />
+              <Route path="counsellor/signup" element={<CouncSignup />} />
+              <Route path="counsellor/signin" element={<CouncSignin />} />
+              <Route path="counsellor/verify" element={<CouncVerify />} />
             </Route>
           </Routes>
         </Layout>
