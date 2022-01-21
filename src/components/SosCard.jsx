@@ -12,14 +12,13 @@ import { useAuth } from "../context/AuthContext"
 import { db } from '../utils/firebase-config'
 
 const SosCard =  ({ onClose, session }) => {
-
     const { currentUser } = useAuth()
     const assignCid = async (session) => {
         let session_id = session.session_id
-        let updatedSession = {...session, cid: currentUser.email}
+        let updatedSession = {...session, cid: currentUser.email,cname:currentUser.displayName}
         delete updatedSession.session_id		
-        console.log(updatedSession);
         await setDoc(doc(db, "sessions", session_id), updatedSession);
+        window.location.replace(`/chat?id=${session_id}`)
     }
 
     return (
@@ -53,7 +52,8 @@ const SosCard =  ({ onClose, session }) => {
                         fontSize="sm"
                         color={useColorModeValue("gray.600", "gray.400")}
                     >
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit In odit
+                        username:{session.uname}<br/>
+                        waiting from:{session.time}
                     </chakra.p>
                 </Box>
                 <Box w={2 / 3} p={{ base: 4, md: 8 }}>
