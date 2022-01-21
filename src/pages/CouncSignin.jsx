@@ -6,10 +6,10 @@ const CouncSignin = () => {
 	return (
 		<>
 			<chakra.h1>Councellor Signin</chakra.h1>
-			<Link to="/councillor/dash">
+			<Link to="/counsellor/dash">
 				<Button>Sign-in</Button>
 			</Link>
-			<Link to="/councillor/signup">
+			<Link to="/counsellor/signup">
 				<Button>No account....? Sign-up</Button>
 			</Link>
 		</>

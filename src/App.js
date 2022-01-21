@@ -16,9 +16,9 @@ function App() {
 					<Routes>
 						<Route path="/" element={<HomePage />} />
 						<Route path="signup/:id" element={<GoogleSignIn />} />
-						<Route path="councillor/signup" element={<CouncSignup />} />
-						<Route path="councillor/signin" element={<CouncSignin />} />
-						<Route path="councillor/verify" element={<CouncVerify />} />
+						<Route path="counsellor/signup" element={<CouncSignup />} />
+						<Route path="counsellor/signin" element={<CouncSignin />} />
+						<Route path="counsellor/verify" element={<CouncVerify />} />
 					</Routes>
 				</Layout>
 			</div>

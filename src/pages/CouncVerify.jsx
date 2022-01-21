@@ -6,7 +6,7 @@ const CouncVerify = () => {
 	return (
 		<div>
 			<h1>This is verify page</h1>
-			<Link to="/councillor/dash">
+			<Link to="/counsellor/dash">
 				<Button>Go to Dash.</Button>
 			</Link>
 		</div>

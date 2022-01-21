@@ -26,8 +26,8 @@ const Navbar = () => {
 					</Flex>
 					<HStack display="flex" alignItems="center">
 						<HStack color="brand.500">
-							<Link to="councillor/signin">
-								<Button variant="solid">Login as Councillor</Button>
+							<Link to="counsellor/signin">
+								<Button variant="solid">Login as counsellor</Button>
 							</Link>
 						</HStack>
 					</HStack>
