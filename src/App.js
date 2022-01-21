@@ -7,7 +7,6 @@ import GoogleSignIn from "./components/GoogleSignIn";
 import CouncSignup from "./pages/CouncSignup";
 import CouncSignin from "./pages/CouncSignin";
 import CouncVerify from "./pages/CouncVerify";
-import { PublicRoute } from "./auth/PublicRoute";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import CouncDashboard from "./pages/CouncDashboard";
 import UserDashboard from "./pages/UserDashboard";

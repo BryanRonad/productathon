@@ -28,18 +28,20 @@ const Navbar = () => {
 							Mental-piece xD
 						</chakra.h1>
 					</Flex>
-					<HStack display="flex" alignItems="center">
-						<HStack color="brand.500">
-							{currentUser ? (
+
+					<HStack color="brand.500">
+						{currentUser ? (
+							<>
+								<Button>Dash</Button>
 								<Button variant="solid" onClick={() => logout()}>
 									Logout
 								</Button>
-							) : (
-								<Link to="counsellor/signin">
-									<Button variant="solid">Login as counsellor</Button>
-								</Link>
-							)}
-						</HStack>
+							</>
+						) : (
+							<Link to="counsellor/signin">
+								<Button variant="solid">Login as counsellor</Button>
+							</Link>
+						)}
 					</HStack>
 				</Flex>
 			</chakra.header>
