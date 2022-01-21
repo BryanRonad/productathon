@@ -4,6 +4,7 @@
     background-color: blueviolet;
     display: flex;
     flex-direction: column;
+    overflow-y: scroll;
 }
 
 .chatwrapper{
