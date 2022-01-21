@@ -9,8 +9,12 @@ import {
 import React from "react";
 import { BiPlusMedical } from "react-icons/bi";
 import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
+	const { currentUser } = useAuth();
+	console.log(currentUser);
+
 	return (
 		<>
 			<chakra.header w="full" px={{ sm: 4 }} py={4} shadow="md">
@@ -26,9 +30,13 @@ const Navbar = () => {
 					</Flex>
 					<HStack display="flex" alignItems="center">
 						<HStack color="brand.500">
-							<Link to="counsellor/signin">
-								<Button variant="solid">Login as counsellor</Button>
-							</Link>
+							{currentUser ? (
+								<Button variant="solid">Logout</Button>
+							) : (
+								<Link to="counsellor/signin">
+									<Button variant="solid">Login as counsellor</Button>
+								</Link>
+							)}
 						</HStack>
 					</HStack>
 				</Flex>
