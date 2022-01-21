@@ -15,7 +15,7 @@ const CouncDashboard = () => {
 				gap={5}
 			>
 				<GridItem rowSpan={1} colSpan={4}>
-					<SosCard></SosCard>
+					<SosCard />
 				</GridItem>
 				<GridItem rowSpan={1} colSpan={3}>
 					<Calander />
