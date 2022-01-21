@@ -7,27 +7,28 @@ import GoogleSignIn from "./components/GoogleSignIn";
 import CouncSignup from "./pages/CouncSignup";
 import CouncSignin from "./pages/CouncSignin";
 import CouncVerify from "./pages/CouncVerify";
-import UserDashboard from "./pages/UserDashboard";
-import CouncDashboard from "./pages/CouncDashboard";
+import { PublicRoute } from "./auth/PublicRoute";
+import { PrivateRoute } from "./auth/PrivateRoute";
 
 function App() {
-	return (
-		<AuthContextProvider>
-			<div className="App">
-				<Layout>
-					<Routes>
-						<Route path="/" element={<HomePage />} />
-						<Route path="signup/:id" element={<GoogleSignIn />} />
-						<Route path="counsellor/signup" element={<CouncSignup />} />
-						<Route path="counsellor/signin" element={<CouncSignin />} />
-						<Route path="counsellor/verify" element={<CouncVerify />} />
-						<Route path="user/dash" element={<UserDashboard />} />
-						<Route path="counsellor/dash" element={<CouncDashboard />} />
-					</Routes>
-				</Layout>
-			</div>
-		</AuthContextProvider>
-	);
+  return (
+    <AuthContextProvider>
+      <div className="App">
+        <Layout>
+          <Routes>
+            <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/signup/:id" element={<GoogleSignIn />} />
+            <Route exact path="/counsellor/signup" element={<CouncSignup />} />
+            <Route exact path="/counsellor/signin" element={<CouncSignin />} />
+            <Route exact path="/counsellor/verify" element={<CouncVerify />} />
+            <Route exact path="/counsellor/dash" element={<PrivateRoute />}>
+              <Route exact path="/counsellor/dash" element={<CouncVerify />} />
+            </Route>
+          </Routes>
+        </Layout>
+      </div>
+    </AuthContextProvider>
+  );
 }
 
 export default App;
