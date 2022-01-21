@@ -1,27 +1,30 @@
 import { Grid, GridItem, VStack } from "@chakra-ui/react";
 import { collection, onSnapshot, query, where } from "@firebase/firestore";
-import React from "react";
+import React, { useEffect } from "react";
 import Calander from "../components/Calander";
 import EventCards from "../components/EventCards";
 import SosCard from "../components/SosCard";
 import { db } from "../utils/firebase-config";
 
 const CouncDashboard = () => {
-	const q = query(collection(db, "sessions"), where("cid", "==", ""));
-	const unsubscribe = onSnapshot(q, (snapshot) => {
-		snapshot.docChanges().forEach((change) => {
-			console.log(change.type);
-			if (change.type === "added") {
-				console.log("New city: ", change.doc.data());
-			}
-			if (change.type === "modified") {
-				console.log("Modified city: ", change.doc.data());
-			}
-			if (change.type === "removed") {
-				console.log("Removed city: ", change.doc.data());
-			}
+	
+    useEffect(() => {
+      const q = query(collection(db, "sessions"), where("cid", "==", ""));
+        onSnapshot(q, (snapshot) => {
+            snapshot.docChanges().forEach((change) => {
+                if (change.type === "added") {
+                    console.log('cid was ' + change.type, change.doc.data());
+                }
+                // if (change.type === "modified") {
+                // 	console.log("Modified session: ", change.doc.data());
+                // }
+                // if (change.type === "removed") {
+                // 	console.log("Removed session: ", change.doc.data());
+                // }            
 		});
 	});
+    }, []);
+    
 
 	return (
 		<>
