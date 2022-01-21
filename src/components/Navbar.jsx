@@ -4,12 +4,17 @@ import {
 	Flex,
 	HStack,
 	Icon,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
 	VisuallyHidden,
 } from "@chakra-ui/react";
 import React from "react";
 import { BiPlusMedical } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
 	const { currentUser, logout } = useAuth();
@@ -32,8 +37,22 @@ const Navbar = () => {
 					<HStack color="brand.500">
 						{currentUser ? (
 							<>
-								<Button>Dash</Button>
-								<Button variant="solid" onClick={() => logout()}>
+								<Menu>
+									<MenuButton as={Button} leftIcon={<FaRegUserCircle />}>
+										{currentUser.displayName}
+									</MenuButton>
+									<MenuList>
+										<MenuItem>
+											<Link to="counsellor/dash">Dashboard</Link>
+										</MenuItem>
+										<MenuItem>Profile</MenuItem>
+									</MenuList>
+								</Menu>
+								<Button
+									colorScheme="orange"
+									variant="solid"
+									onClick={() => logout()}
+								>
 									Logout
 								</Button>
 							</>
