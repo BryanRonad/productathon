@@ -8,6 +8,7 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { BiPlusMedical } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 	return (
@@ -30,7 +31,9 @@ const Navbar = () => {
 					</Flex>
 					<HStack display="flex" alignItems="center">
 						<HStack color="brand.500">
-							<Button variant="solid">Register as Councellor</Button>
+							<Link to="councillor/signin">
+								<Button variant="solid">Login as Councillor</Button>
+							</Link>
 						</HStack>
 					</HStack>
 				</Flex>
