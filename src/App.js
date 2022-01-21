@@ -15,7 +15,7 @@ function App() {
 				<Layout>
 					<Routes>
 						<Route path="/" element={<HomePage />} />
-						<Route path="signup" element={<GoogleSignIn />} />
+						<Route path="signup/:id" element={<GoogleSignIn />} />
 						<Route path="councillor/signup" element={<CouncSignup />} />
 						<Route path="councillor/signin" element={<CouncSignin />} />
 						<Route path="councillor/verify" element={<CouncVerify />} />
