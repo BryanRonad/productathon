@@ -1,12 +1,4 @@
-import {
-	Badge,
-	Box,
-	Button,
-	chakra,
-	Flex,
-	Image,
-	useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Button, chakra, Flex, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 
 const CounCard = () => {
