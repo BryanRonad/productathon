@@ -8,29 +8,37 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import { BiPlusMedical } from "react-icons/bi";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
+	const { currentUser, logout } = useAuth();
+	console.log(currentUser);
+
 	return (
 		<>
 			<chakra.header w="full" px={{ sm: 4 }} py={4} shadow="md">
 				<Flex alignItems="center" justifyContent="space-between" mx="auto">
 					<Flex>
-						<chakra.a
-							href="/"
-							title="Choc Home Page"
-							display="flex"
-							alignItems="center"
-						>
+						<Link to="/">
 							<Icon as={BiPlusMedical} />
-							<VisuallyHidden>Choc</VisuallyHidden>
-						</chakra.a>
+							<VisuallyHidden>Mental-piece</VisuallyHidden>
+						</Link>
 						<chakra.h1 fontWeight="bold" ml="2">
 							Mental-piece xD
 						</chakra.h1>
 					</Flex>
 					<HStack display="flex" alignItems="center">
 						<HStack color="brand.500">
-							<Button variant="solid">Register as Councellor</Button>
+							{currentUser ? (
+								<Button variant="solid" onClick={() => logout()}>
+									Logout
+								</Button>
+							) : (
+								<Link to="counsellor/signin">
+									<Button variant="solid">Login as counsellor</Button>
+								</Link>
+							)}
 						</HStack>
 					</HStack>
 				</Flex>
