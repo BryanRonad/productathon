@@ -21,7 +21,6 @@ const Chat = () => {
   const session_id = searchParams.get("id");
   const session_type = searchParams.get("type");
   const ref1 = db.collection(session_type === "free" ? "sessions" : "paid");
-  const [curSession, setcurSession] = useState(session_id);
 
   const [data, setData] = useState({
     sender: "",
@@ -65,18 +64,18 @@ const Chat = () => {
 
     data.time = d.toLocaleString();
     data.sender = currentUser.email;
-    data.session = curSession;
+    data.session = session_id;
     data.receiver = rid;
     const d1 = new Date();
     data.timeindex = d1.getTime();
 
     await ref.add(data);
     setData({
-      sender: "",
-      receiver: "",
+      sender: currentUser.email,
+      receiver: rid,
       msg: "",
       time: "",
-      session: curSession,
+      session: session_id,
       timeindex: "",
     });
   };
@@ -88,7 +87,7 @@ const Chat = () => {
         if (doc.id === session_id) {
           if (currentUser) {
             if (doc.data() && !doc.data().endtime) {
-              if (doc.data().uid === currentUser.email) {
+              if (doc.data().uid === currentUser.email || doc.data().uid === currentUser.uid) {
                 setReceiver(doc.data().cname);
                 setrid(doc.data().cid);
               } else {
@@ -107,7 +106,7 @@ const Chat = () => {
   const endsession = async (e) => {
     e.preventDefault();
     var d = new Date();
-    const sessionRef = doc(db, "sessions", session_id);
+    const sessionRef = doc(db, (session_type === "free" ? "sessions" : "paid"), session_id);
     setDoc(sessionRef, { endtime: d.toLocaleString() }, { merge: true });
     chat.forEach((value) => {
       ref.doc(value.id).delete();
@@ -208,6 +207,7 @@ const Chat = () => {
               colorScheme="green"
               variant="solid"
               leftIcon={<GrSend color="white" />}
+              onClick={send}
             >
               send
             </Button>
