@@ -31,8 +31,9 @@ import { db } from "../utils/firebase-config";
 
 const CouncVerify = () => {
   const { currentUser } = useAuth();
-  const ref = db.collection("counsellors");
-  const [verifypend,setVerifypend] =  useState(false)
+  const ref = db.collection("counsellors").doc(currentUser.uid.toString());
+  console.log(currentUser.uid.toString());
+  const [verifypend, setVerifypend] = useState(false);
 
   const [data, setData] = useState({
     about: "",
@@ -44,23 +45,23 @@ const CouncVerify = () => {
     city: "",
     state: "",
     zip: "",
-	qualifications:["MA","PhD"],
-	isVerified:false
+    qualifications: ["MA", "PhD"],
+    isVerified: false,
   });
 
   ref.onSnapshot((querySnapshot) => {
-	querySnapshot.forEach((doc) => {
-	  if (currentUser) {
-		if (doc.data().email === currentUser.email) {
-		  if(doc.data().isVerified){
-			window.location.href = "/counsellor/dash";
-		  }else{
-			setVerifypend(true)
-			setData(doc.data())
-		  }
-		}
-	  }
-	});
+    querySnapshot.forEach((doc) => {
+      if (currentUser) {
+        if (doc.data().email === currentUser.email) {
+          if (doc.data().isVerified) {
+            window.location.href = "/counsellor/dash";
+          } else {
+            setVerifypend(true);
+            setData(doc.data());
+          }
+        }
+      }
+    });
   });
 
   useEffect(() => {
@@ -74,7 +75,8 @@ const CouncVerify = () => {
     }
   }, [currentUser]);
 
-  let name,value = "";
+  let name,
+    value = "";
 
   const changedata = (e) => {
     e.preventDefault();
@@ -83,16 +85,17 @@ const CouncVerify = () => {
     setData({ ...data, [name]: value });
   };
 
-  const SaveData = async ()=>{
-	await ref.add(data);
-	setVerifypend(true)
-  }
+  const SaveData = async () => {
+    await ref.set(data);
+    setVerifypend(true);
+  };
 
   return (
     <div>
       {console.log(data)}
       <Heading mt={5} size="md">
-        Verification of Documents {verifypend ? "your verification is pending" : ""}
+        Verification of Documents{" "}
+        {verifypend ? "your verification is pending" : ""}
       </Heading>
       <Box bg={useColorModeValue("gray.50", "inherit")} p={10} m={5}>
         <Box>
@@ -377,7 +380,7 @@ const CouncVerify = () => {
                         size="sm"
                         w="full"
                         rounded="md"
-						disabled
+                        disabled
                         value={data.fname}
                       />
                     </FormControl>
@@ -402,7 +405,7 @@ const CouncVerify = () => {
                         size="sm"
                         w="full"
                         rounded="md"
-						disabled
+                        disabled
                         value={data.lname}
                       />
                     </FormControl>
@@ -427,7 +430,7 @@ const CouncVerify = () => {
                         size="sm"
                         w="full"
                         rounded="md"
-						disabled
+                        disabled
                         value={data.email}
                       />
                     </FormControl>
@@ -452,8 +455,8 @@ const CouncVerify = () => {
                         size="sm"
                         w="full"
                         rounded="md"
-						value={data.country}
-						onChange={changedata}
+                        value={data.country}
+                        onChange={changedata}
                       >
                         <option>United States</option>
                         <option>Canada</option>
@@ -481,8 +484,8 @@ const CouncVerify = () => {
                         size="sm"
                         w="full"
                         rounded="md"
-						value={data.street}
-						onChange={changedata}
+                        value={data.street}
+                        onChange={changedata}
                       />
                     </FormControl>
 
@@ -506,8 +509,8 @@ const CouncVerify = () => {
                         size="sm"
                         w="full"
                         rounded="md"
-						value={data.city}
-						onChange={changedata}
+                        value={data.city}
+                        onChange={changedata}
                       />
                     </FormControl>
 
@@ -531,8 +534,8 @@ const CouncVerify = () => {
                         size="sm"
                         w="full"
                         rounded="md"
-						value={data.state}
-						onChange={changedata}
+                        value={data.state}
+                        onChange={changedata}
                       />
                     </FormControl>
 
@@ -556,8 +559,8 @@ const CouncVerify = () => {
                         size="sm"
                         w="full"
                         rounded="md"
-						value={data.zip}
-						onChange={changedata}
+                        value={data.zip}
+                        onChange={changedata}
                       />
                     </FormControl>
                   </SimpleGrid>
@@ -765,7 +768,12 @@ const CouncVerify = () => {
               <Button>Cancel</Button>
             </Link>
             <div>
-              <Button colorScheme={verifypend ? "facebook" :"whatsapp"} onClick={SaveData}>{ verifypend ? "Update" :"Finish"}</Button>
+              <Button
+                colorScheme={verifypend ? "facebook" : "whatsapp"}
+                onClick={SaveData}
+              >
+                {verifypend ? "Update" : "Finish"}
+              </Button>
             </div>
           </Flex>
         </Box>

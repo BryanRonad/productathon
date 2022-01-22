@@ -5,10 +5,22 @@ import {
 	useColorModeValue,
 	VStack,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CounCard from "./CounCard";
+import {db } from "../utils/firebase-config"
 
 const AllAppoint = () => {
+	const [counsellors, setCounsellors] = useState(null);
+
+  useEffect(() => {
+    return db.collection('counsellors').onSnapshot((snapshot) => {
+      const postData = [];
+      snapshot.forEach((doc) => postData.push({ ...doc.data(), id: doc.id }));
+      console.log(postData);
+      setCounsellors(postData);
+    });
+  }, []);
+
 	return (
 		<>
 			<Container maxW="container.lg">
@@ -20,10 +32,9 @@ const AllAppoint = () => {
 					overflow="hidden"
 				>
 					<VStack>
-						<CounCard />
-						<CounCard />
-						<CounCard />
-						<CounCard />
+						{ counsellors && counsellors.map((ele) => {
+							return <CounCard counsellor={ele} />
+						})}
 					</VStack>
 				</Box>
 			</Container>
