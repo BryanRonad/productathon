@@ -39,7 +39,7 @@ const HomePage = () => {
 							letterSpacing={{ base: "normal", md: "tight" }}
 							color={useColorModeValue("gray.900", "gray.100")}
 						>
-							Get{" "}
+							Find your
 							<Text
 								display={{ base: "block", lg: "inline" }}
 								w="full"
@@ -47,9 +47,10 @@ const HomePage = () => {
 								bgGradient="linear(to-r, green.400,purple.500)"
 								fontWeight="extrabold"
 							>
-								happy place
+								{" "}
+								mental solace
 							</Text>{" "}
-							in one single place.
+							in one single click.
 						</chakra.h1>
 						<chakra.p
 							px={{ base: 0, lg: 24 }}
@@ -57,9 +58,9 @@ const HomePage = () => {
 							fontSize={{ base: "lg", md: "xl" }}
 							color={useColorModeValue("gray.600", "gray.300")}
 						>
-							Hellonext is a feature voting software where you can allow your
-							users to vote on features, publish roadmap, and complete your
-							customer feedback loop.
+							MindAid is where you can take a step in the right direction for
+							your mental comfort. Connect with our experienced counsellors and
+							bring forth your inner peace.
 						</chakra.p>
 						<Stack
 							direction={{ base: "column", sm: "row" }}
@@ -102,7 +103,7 @@ const HomePage = () => {
 									size="lg"
 									cursor="pointer"
 								>
-									Connect now
+									Chat with a professional immediately.
 									<Icon
 										boxSize={4}
 										ml={1}
