@@ -41,7 +41,7 @@ const EventCards = ({ data, order }) => {
         if (currentUser) {
           if (doc.data().cid === currentUser.email) {
             sessioncheck = false;
-            navigate(`/chat?id=${doc.id}`);
+            navigate(`/chat?id=${doc.id}&type=paid`);
           }
         }
       });
@@ -53,7 +53,7 @@ const EventCards = ({ data, order }) => {
         session.uid = data.user;
         session.cname = currentUser.displayName;
         ref.add(session).then((docRef) => {
-          navigate(`/chat?id=${docRef.id}`);
+          navigate(`/chat?id=${docRef.id}&type=paid`);
         });
       }
     });
