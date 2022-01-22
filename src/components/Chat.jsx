@@ -45,7 +45,7 @@ const Chat = () => {
       });
       setchat(items);
       var objDiv = document.querySelector(`.mainchat`);
-      if(objDiv){
+      if (objDiv) {
         objDiv.scrollTop = objDiv.scrollHeight;
       }
     });
@@ -86,7 +86,7 @@ const Chat = () => {
       query.forEach((doc) => {
         if (doc.id === session_id) {
           if (currentUser) {
-            if (doc.data() && !doc.data().endtime ) {
+            if (doc.data() && !doc.data().endtime) {
               if (doc.data().uid === currentUser.email) {
                 setReceiver(doc.data().cname);
                 setrid(doc.data().cid);
@@ -113,20 +113,7 @@ const Chat = () => {
     });
     navigate("/");
   };
-
-  useEffect(() => {
-    console.log("hmm")
-    const q = query(collection(db, "sessions"), where("end", "!=", null));
-    onSnapshot(q, (snapshot) => {
-      snapshot.docChanges().forEach((change) => {
-    console.log("hmm2")
-        if (change.type === "added") {
-          console.log("ygasyfasf")
-          navigate("/");
-        }
-      });
-    });
-  }, [ref1]);
+  
   return (
     <>
       <div className="center">
