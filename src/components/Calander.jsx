@@ -12,6 +12,7 @@ import { doc, getDoc } from "firebase/firestore";
 const Calander = () => {
 	const [selected, setSelected] = useState({});
 	const [availableHours, setAvailableHours] = useState([]);
+	const [reRender, setReRender] = useState(false);
 	const { currentUser } = useAuth();
 
 	const getSelected = async () => {
@@ -59,6 +60,8 @@ const Calander = () => {
 							await arrayRef.update({
 								events: firebase.firestore.FieldValue.delete(),
 							});
+
+							setAvailableHours([]);
 						},
 					},
 				}}
