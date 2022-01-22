@@ -33,43 +33,16 @@ import { collection, getDocs } from "firebase/firestore";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
-  const [utype,settype] = useState("");
+  const [utype, settype] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState({
-    about: "",
     fname: "",
     lname: "",
     email: "",
-    country: "",
-    city: "",
-    state: "",
   });
   const ref = db.collection("counsellors");
 
-  const querySnapshotc = await getDocs(collection(db, "counsellors"));
-  const querySnapshotu = await getDocs(collection(db, "users"));
-
-  querySnapshotc.forEach((doc) => {
-    if(currentUser){
-      if(doc.id === currentUser.uid){
-        settype("counsellors")
-      }
-    }
-  });
-
-  querySnapshotu.forEach((doc) => {
-    if(currentUser){
-      if(doc.id === currentUser.uid){
-        if(doc.data().type === "free"){
-          settype("fusers")
-        }else{
-          settype("pusers")
-        }
-      }
-    }
-  });
-
-  useEffect(() => {
+  useEffect(async () => {
     ref.onSnapshot((querySnapshot) => {
       querySnapshot.forEach((doc) => {
         if (currentUser) {
@@ -79,62 +52,61 @@ const Navbar = () => {
         }
       });
     });
+
+    const querySnapshotc = await getDocs(collection(db, "counsellors"));
+    const querySnapshotu = await getDocs(collection(db, "users"));
+
+    querySnapshotc.forEach((doc) => {
+      if (currentUser) {
+        if (doc.id === currentUser.uid) {
+          settype("counsellor");
+        }
+      }
+    });
+
+    querySnapshotu.forEach((doc) => {
+      if (currentUser) {
+        if (doc.id === currentUser.uid) {
+          if (doc.data().type === "free") {
+            settype("fusers");
+          } else {
+            settype("pusers");
+          }
+        }
+      }
+    });
   }, [currentUser]);
 
   return (
     <>
       {currentUser ? (
-        data.isVerified ? (
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>
-                <AiFillProfile /> My Profile
-              </ModalHeader>
-              <ModalCloseButton />
-              <ModalBody pb={6}>
-                <FormControl>
-                  <FormLabel>Username</FormLabel>
-                  <p>{currentUser ? data.fname + data.lname : ""}</p>
-                </FormControl>
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>
+              <AiFillProfile /> My Profile
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody pb={6}>
+              <FormControl>
+                <FormLabel>Username</FormLabel>
+                <p>{currentUser ? data.fname + data.lname : ""}</p>
+              </FormControl>
 
-                <FormControl mt={4}>
-                  <FormLabel>Email</FormLabel>
-                  <p>{currentUser ? data.email : ""}</p>
-                </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Email</FormLabel>
+                <p>{currentUser ? data.email : ""}</p>
+              </FormControl>
+            </ModalBody>
 
-                <FormControl mt={4}>
-                  <FormLabel>Country</FormLabel>
-                  <p>{currentUser ? data.country : ""}</p>
-                </FormControl>
-
-                <FormControl mt={4}>
-                  <FormLabel>State</FormLabel>
-                  <p>{currentUser ? data.state : ""}</p>
-                </FormControl>
-
-                <FormControl mt={4}>
-                  <FormLabel>City</FormLabel>
-                  <p>{currentUser ? data.city : ""}</p>
-                </FormControl>
-
-                <FormControl mt={4}>
-                  <FormLabel>About</FormLabel>
-                  <p>{currentUser ? data.about : ""}</p>
-                </FormControl>
-              </ModalBody>
-
-              <ModalFooter>
-                <Button colorScheme="green" mr={3}>
-                  Edit
-                </Button>
-                <Button onClick={onClose}>Close</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-        ) : (
-          ""
-        )
+            <ModalFooter>
+              <Button colorScheme="green" mr={3}>
+                Edit
+              </Button>
+              <Button onClick={onClose}>Close</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
       ) : (
         ""
       )}
@@ -159,9 +131,22 @@ const Navbar = () => {
                     {currentUser.displayName}
                   </MenuButton>
                   <MenuList>
-                    <MenuItem>
-                      <Link to={ utype === "counsellor" ? "counsellor/dash" : utype === "pusers" ? "user/dash" : "/" }>Dashboard</Link>
-                    </MenuItem>
+                  {console.log(utype)}
+                    {utype === "fusers" ? (
+                      ""
+                    ) : (
+                      <MenuItem>
+                        <Link
+                          to={
+                            utype === "counsellor"
+                              ? "counsellor/dash"
+                              : "user/dash"
+                          }
+                        >
+                          Dashboard
+                        </Link>
+                      </MenuItem>
+                    )}
                     {currentUser ? (
                       <MenuItem onClick={onOpen}>Profile</MenuItem>
                     ) : (
