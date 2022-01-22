@@ -1,10 +1,12 @@
 import { Grid, GridItem } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
 import AllAppoint from "../components/AllAppoint";
 import Assesment from "../components/Assesment";
 import CurrentAppoint from "../components/CurrentAppoint";
 
 const UserDashboard = () => {
+	const [currentAppoint, setCurrentAppoint] = useState(true);
+
 	return (
 		<>
 			<Grid
@@ -17,9 +19,12 @@ const UserDashboard = () => {
 				<GridItem rowSpan={1} colSpan={1}>
 					<Assesment />
 				</GridItem>
-				<GridItem rowSpan={2} colSpan={1}>
-					<CurrentAppoint />
-				</GridItem>
+				{currentAppoint && (
+					<GridItem rowSpan={2} colSpan={1}>
+						<CurrentAppoint />
+					</GridItem>
+				)}
+
 				<GridItem rowSpan={5} colSpan={1} style={{ overflowY: "scroll" }}>
 					<AllAppoint />
 				</GridItem>

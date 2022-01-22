@@ -15,6 +15,7 @@ const CouncSignin = () => {
 			.then((user) => {
 				console.log(user.user.uid);
 				counsellorCollection.doc(user.user.uid.toString()).set({
+					isVerified: false,
 					bio: "This is the bio",
 					qualifications: ["MA", "PhD"],
 				});
