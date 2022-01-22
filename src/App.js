@@ -12,32 +12,41 @@ import Chat from "./components/Chat";
 import { PrivateRoute } from "./auth/PrivateRoute";
 import CouncDashboard from "./pages/CouncDashboard";
 import UserDashboard from "./pages/UserDashboard";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-	return (
-		<AuthContextProvider>
-			<div className="App">
-				<Layout>
-					<Routes>
-						<Route exact path="/" element={<HomePage />} />
-						<Route exact path="/signup/:id" element={<GoogleSignIn />} />
-						<Route exact path="/counsellor/signup" element={<CouncSignup />} />
-						<Route exact path="/counsellor/signin" element={<CouncSignin />} />
-						<Route exact path="/counsellor/verify" element={<CouncVerify />} />
-						<Route exact path="/chat" element={<Chat />} />
-						<Route exact path="/counsellor/dash" element={<PrivateRoute />}>
-							<Route
-								exact
-								path="/counsellor/dash"
-								element={<CouncDashboard />}
-							/>
-						</Route>
-						<Route path="/user/dash" element={<UserDashboard />}></Route>
-					</Routes>
-				</Layout>
-			</div>
-		</AuthContextProvider>
-	);
+  const { currentUser } = useAuth();
+
+  return (
+    <AuthContextProvider>
+      <div className="App">
+        <Layout>
+          <Routes>
+            <Route exact path="/" element={<HomePage />} />
+            <Route exact path="/signup/:id" element={<GoogleSignIn />} />
+            <Route exact path="/counsellor/signup" element={<CouncSignup />} />
+            <Route exact path="/counsellor/signin" element={<CouncSignin />} />
+            <Route exact path="/counsellor/verify" element={<PrivateRoute />}>
+              <Route
+                exact
+                path="/counsellor/verify"
+                element={<CouncVerify />}
+              />
+            </Route>
+            <Route exact path="/chat" element={<Chat />} />
+            <Route exact path="/counsellor/dash" element={<PrivateRoute />}>
+              <Route
+                exact
+                path="/counsellor/dash"
+                element={<CouncDashboard />}
+              />
+            </Route>
+            <Route exact path="/user/dash" element={<UserDashboard />} />
+          </Routes>
+        </Layout>
+      </div>
+    </AuthContextProvider>
+  );
 }
 
 export default App;

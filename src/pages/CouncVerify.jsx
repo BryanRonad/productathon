@@ -72,6 +72,20 @@ const CouncVerify = () => {
         lname: currentUser.displayName.split(" ")[1],
         email: currentUser.email,
       });
+
+      ref.onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            if (doc.data().email === currentUser.email) {
+              if (doc.data().isVerified) {
+                window.location.href = "/counsellor/dash";
+              } else {
+                setVerifypend(true);
+                setData(doc.data());
+              }
+            }
+
+        });
+      });
     }
   }, [currentUser]);
 
@@ -92,7 +106,6 @@ const CouncVerify = () => {
 
   return (
     <div>
-      {console.log(data)}
       <Heading mt={5} size="md">
         Verification of Documents{" "}
         {verifypend ? "your verification is pending" : ""}

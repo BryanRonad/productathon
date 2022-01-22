@@ -4,7 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import animationData from "../lottie/signin.json";
 import Lottie from "react-lottie";
 
-const SignInCard = ({ signInCounsellor }) => {
+const SignInCard = ({ signIn,id }) => {
 	const defaultOptions = {
 		loop: true,
 		autoplay: true,
@@ -29,7 +29,7 @@ const SignInCard = ({ signInCounsellor }) => {
 					<Lottie options={defaultOptions} />
 				</Box>
 				<Button
-					onClick={signInCounsellor}
+					onClick={signIn}
 					leftIcon={<FaGoogle />}
 					colorScheme="red"
 					w="full"
