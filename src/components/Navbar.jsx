@@ -29,9 +29,11 @@ import {
 import { FaRegUserCircle } from "react-icons/fa";
 import { AiFillProfile } from "react-icons/ai";
 import { db } from "../utils/firebase-config";
+import { collection, getDocs } from "firebase/firestore";
 
 const Navbar = () => {
   const { currentUser, logout } = useAuth();
+  const [utype,settype] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [data, setData] = useState({
     about: "",
@@ -43,6 +45,29 @@ const Navbar = () => {
     state: "",
   });
   const ref = db.collection("counsellors");
+
+  const querySnapshotc = await getDocs(collection(db, "counsellors"));
+  const querySnapshotu = await getDocs(collection(db, "users"));
+
+  querySnapshotc.forEach((doc) => {
+    if(currentUser){
+      if(doc.id === currentUser.uid){
+        settype("counsellors")
+      }
+    }
+  });
+
+  querySnapshotu.forEach((doc) => {
+    if(currentUser){
+      if(doc.id === currentUser.uid){
+        if(doc.data().type === "free"){
+          settype("fusers")
+        }else{
+          settype("pusers")
+        }
+      }
+    }
+  });
 
   useEffect(() => {
     ref.onSnapshot((querySnapshot) => {
@@ -135,7 +160,7 @@ const Navbar = () => {
                   </MenuButton>
                   <MenuList>
                     <MenuItem>
-                      <Link to="counsellor/dash">Dashboard</Link>
+                      <Link to={ utype === "counsellor" ? "counsellor/dash" : utype === "pusers" ? "user/dash" : "/" }>Dashboard</Link>
                     </MenuItem>
                     {currentUser ? (
                       <MenuItem onClick={onOpen}>Profile</MenuItem>
