@@ -45,7 +45,9 @@ const Chat = () => {
       });
       setchat(items);
       var objDiv = document.querySelector(`.mainchat`);
-      objDiv.scrollTop = objDiv.scrollHeight;
+      if(objDiv){
+        objDiv.scrollTop = objDiv.scrollHeight;
+      }
     });
   }
 
@@ -116,8 +118,8 @@ const Chat = () => {
     console.log("hmm")
     const q = query(collection(db, "sessions"), where("end", "!=", null));
     onSnapshot(q, (snapshot) => {
-    console.log("hmm2")
       snapshot.docChanges().forEach((change) => {
+    console.log("hmm2")
         if (change.type === "added") {
           console.log("ygasyfasf")
           navigate("/");
