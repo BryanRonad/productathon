@@ -37,17 +37,17 @@ const Navbar = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Create your account</ModalHeader>
+          <ModalHeader>My Profile</ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
             <FormControl>
-              <FormLabel>First name</FormLabel>
-              <p>tejas</p>
+              <FormLabel>Username</FormLabel>
+              <p>{currentUser?currentUser.displayName:""}</p>
             </FormControl>
 
             <FormControl mt={4}>
-              <FormLabel>Last name</FormLabel>
-              <p>jagdale</p>
+              <FormLabel>Email</FormLabel>
+              <p>{currentUser?currentUser.email:""}</p>
             </FormControl>
           </ModalBody>
 
@@ -83,7 +83,7 @@ const Navbar = () => {
                     <MenuItem>
                       <Link to="counsellor/dash">Dashboard</Link>
                     </MenuItem>
-                    <MenuItem onClick={onOpen}>Profile</MenuItem>
+                    {currentUser ?<MenuItem onClick={onOpen}>Profile</MenuItem>:""}
                   </MenuList>
                 </Menu>
                 <Button
