@@ -7,6 +7,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { GrSend } from "react-icons/gr";
 import { FaUserCircle } from "react-icons/fa";
 import { doc, setDoc } from "firebase/firestore";
+import { collection, onSnapshot, query, where } from "@firebase/firestore";
 import "./Chat.css";
 
 const Chat = () => {
