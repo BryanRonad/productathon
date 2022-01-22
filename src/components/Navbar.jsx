@@ -1,14 +1,14 @@
 import {
-  Button,
-  chakra,
-  Flex,
-  HStack,
-  Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  VisuallyHidden,
+	Button,
+	chakra,
+	Flex,
+	HStack,
+	Icon,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	VisuallyHidden,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import { BiPlusMedical } from "react-icons/bi";
@@ -16,21 +16,22 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { FaRegUserCircle } from "react-icons/fa";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  useDisclosure,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
+	FormControl,
+	FormLabel,
+	useDisclosure,
 } from "@chakra-ui/react";
+import UserProfile from "./UserProfile";
 
 const Navbar = () => {
-  const { currentUser, logout } = useAuth();
-  const { isOpen, onOpen, onClose } = useDisclosure();
+	const { currentUser, logout } = useAuth();
+	const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
     <>
