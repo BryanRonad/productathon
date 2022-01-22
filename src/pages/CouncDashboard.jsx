@@ -19,6 +19,7 @@ import SosCard from "../components/SosCard";
 import { db } from "../utils/firebase-config";
 import { Switch } from "@chakra-ui/switch";
 import { useAuth } from "../context/AuthContext";
+import { useEvent } from "../context/EventContext";
 
 const CouncDashboard = () => {
 	const { currentUser } = useAuth();
@@ -27,6 +28,9 @@ const CouncDashboard = () => {
 	const [chatSession, setChatSession] = useState({});
 	const onClose = () => setIsOpen(false);
 	const cancelRef = useRef();
+	const { scheduledEvents } = useEvent();
+
+	console.log(scheduledEvents);
 
 	useEffect(() => {
 		if (!optOut) {
@@ -101,12 +105,9 @@ const CouncDashboard = () => {
 				</GridItem>
 				<GridItem rowSpan={1} colSpan={1} style={{ overflowY: "scroll" }}>
 					<VStack>
-						<EventCards />
-						<EventCards />
-						<EventCards />
-						<EventCards />
-						<EventCards />
-						<EventCards />
+						{scheduledEvents.map((item, index) => (
+							<EventCards key={index} data={item} order={index} />
+						))}
 					</VStack>
 				</GridItem>
 			</Grid>

@@ -1,39 +1,41 @@
-import { Box, Button, chakra, Flex, useColorModeValue } from "@chakra-ui/react";
+import {
+	Box,
+	Button,
+	chakra,
+	Flex,
+	ListItem,
+	OrderedList,
+	SimpleGrid,
+	Text,
+	UnorderedList,
+	useColorModeValue,
+} from "@chakra-ui/react";
 import React from "react";
 
-const EventCards = ({ sosCard }) => {
+const EventCards = ({ data, order }) => {
 	return (
 		<>
 			<Box
-				w="full"
-				maxW="sm"
-				mx="auto"
-				mt={2}
-				px={4}
-				py={3}
+				p={5}
 				bg={useColorModeValue("white", "gray.800")}
 				shadow="md"
 				rounded="md"
 			>
-				<Box>
-					<chakra.h1
-						fontSize="lg"
-						fontWeight="bold"
-						mt={2}
-						color={useColorModeValue("gray.800", "white")}
-					>
-						This is event 1
-					</chakra.h1>
-					<chakra.p
-						fontSize="sm"
-						mt={2}
-						color={useColorModeValue("gray.600", "gray.300")}
-					>
-						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Odio
-						eligendi similique exercitationem optio libero vitae accusamus
-						cupiditate laborum eos.
-					</chakra.p>
-				</Box>
+				<chakra.h1
+					fontSize="lg"
+					fontWeight="bold"
+					mt={2}
+					color={useColorModeValue("gray.800", "white")}
+				>
+					Session {order + 1}
+				</chakra.h1>
+
+				<OrderedList>
+					<ListItem>Lorem ipsum dolor sit amet</ListItem>
+					<ListItem>Consectetur adipiscing elit</ListItem>
+					<ListItem>Integer molestie lorem at massa</ListItem>
+					<ListItem>Facilisis in pretium nisl aliquet</ListItem>
+				</OrderedList>
 
 				<Box>
 					<Flex
