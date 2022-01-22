@@ -1,8 +1,10 @@
 import { Box, Button, chakra, Flex, useColorModeValue } from "@chakra-ui/react";
 import React, { useState } from "react";
 import Schedule from "./Schedule";
+import { useAuth } from "../context/AuthContext";
 
 const CounCard = (counsellor) => {
+  const { currentUser } = useAuth();
   let counsellorObj = counsellor.counsellor;
   const [isOpen, setIsOpen] = useState(false);
 
@@ -57,7 +59,12 @@ const CounCard = (counsellor) => {
         <Box w={1 / 3} p={{ base: 4, md: 4 }} mt={4}>
           <Button onClick={() => setIsOpen(true)}>Book Appointment</Button>
         </Box>
-        <Schedule isOpen={isOpen} onClose={onClose} id={counsellorObj.id} />
+        <Schedule
+          isOpen={isOpen}
+          onClose={onClose}
+          id={counsellorObj.id}
+          currentuser={currentUser.uid.toString()}
+        />
       </Flex>
     </>
   );
