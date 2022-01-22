@@ -126,7 +126,7 @@ const Calander = ({ isCounsellor, id, currentuser }) => {
         }
         initialView="timeGridWeek"
         weekends={false}
-        selectable={scheduledHours.length === 0}
+        selectable={isCounsellor || scheduledHours.length === 0}
         unselectAuto={false}
         selectOverlap={false}
         events={availableHours.concat(scheduledHours)}
