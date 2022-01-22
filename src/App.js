@@ -41,7 +41,9 @@ function App() {
                 element={<CouncDashboard />}
               />
             </Route>
-            <Route exact path="/user/dash" element={<UserDashboard />} />
+            <Route exact path="/user/dash" element={<PrivateRoute />}>
+              <Route exact path="/user/dash" element={<UserDashboard />} />
+            </Route>
           </Routes>
         </Layout>
       </div>
