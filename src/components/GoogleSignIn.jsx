@@ -11,20 +11,34 @@ function GoogleSignIn() {
   const ref1 = db.collection("sessions");
   const [session, setSession] = useState({
     cid: "",
-	cname:"",
+    cname: "",
     time: "",
     uid: "",
     uname: "",
   });
 
   const Addsession = () => {
-    var d = new Date();
+    var sessioncheck = true;
 
-    session.time = d.toLocaleString();
-    session.uid = currentUser.email;
-    session.uname = currentUser.displayName;
+    ref1.onSnapshot((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (currentUser) {
+          if (doc.data().uid === currentUser.email) {
+            sessioncheck = false;
+          }
+        }
+      });
 
-    ref1.add(session);
+      if (sessioncheck) {
+        var d = new Date();
+
+        session.time = d.toLocaleString();
+        session.uid = currentUser.email;
+        session.uname = currentUser.displayName;
+
+        ref1.add(session);
+      }
+    });
   };
 
   const signInUser = () => {
@@ -53,9 +67,9 @@ function GoogleSignIn() {
       querySnapshot.forEach((doc) => {
         if (currentUser) {
           if (doc.data().uid === currentUser.email) {
-			  if(doc.data().cid){
-				  window.location.href = `/chat?id=${doc.id}`;
-			  }
+            if (doc.data().cid) {
+              window.location.href = `/chat?id=${doc.id}`;
+            }
           }
         }
       });
