@@ -4,16 +4,14 @@ import {
   chakra,
   Container,
   Flex,
-  HStack,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React from "react";
-import CounCard from "./CounCard";
+// import CounCard from "./CounCard";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase-config";
 import { useAuth } from "../context/AuthContext";
-import { doc, setDoc } from "firebase/firestore";
+import { setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const CurrentAppoint = () => {

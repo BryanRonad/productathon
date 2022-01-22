@@ -4,11 +4,6 @@ import {
   chakra,
   Flex,
   Icon,
-  ListItem,
-  OrderedList,
-  SimpleGrid,
-  Text,
-  UnorderedList,
   useColorModeValue,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
