@@ -47,6 +47,7 @@ const HomePage = () => {
 								bgGradient="linear(to-r, green.400,purple.500)"
 								fontWeight="extrabold"
 							>
+								{" "}
 								mental solace
 							</Text>{" "}
 							in one single click.
