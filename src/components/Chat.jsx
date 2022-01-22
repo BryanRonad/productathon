@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { db } from "../utils/firebase-config";
 import { useAuth } from "../context/AuthContext";
 import { Avatar, Button, Container, Wrap, WrapItem } from "@chakra-ui/react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import { GrSend } from "react-icons/gr";
 import { FaUserCircle } from "react-icons/fa";
@@ -10,6 +10,7 @@ import "./Chat.css";
 
 const Chat = () => {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const ref = db.collection("messages");
   const ref1 = db.collection("sessions");
   const [chat, setchat] = useState([]);
@@ -44,27 +45,27 @@ const Chat = () => {
       var objDiv = document.querySelector(`.mainchat`);
       objDiv.scrollTop = objDiv.scrollHeight;
     });
-  };
+  }
 
-    ref1.onSnapshot((query)=>{
-      query.forEach((doc) => {
-        if(doc.id === session_id){
-          if (currentUser) {
-            if (doc.data()) {
-              if (doc.data().uid === currentUser.email) {
-                setReceiver(doc.data().cname);
-                setrid(doc.data().cid);
-              } else {
-                setReceiver(doc.data().uname);
-                setrid(doc.data().uid);
-              }
+  ref1.onSnapshot((query) => {
+    query.forEach((doc) => {
+      if (doc.id === session_id) {
+        if (currentUser) {
+          if (doc.data()) {
+            if (doc.data().uid === currentUser.email) {
+              setReceiver(doc.data().cname);
+              setrid(doc.data().cid);
             } else {
-              window.location.replace("/");
+              setReceiver(doc.data().uname);
+              setrid(doc.data().uid);
             }
+          } else {
+            navigate("/");
           }
         }
-      })
-    })
+      }
+    });
+  });
 
   function Deletechat(e) {
     e.preventDefault();
@@ -105,7 +106,7 @@ const Chat = () => {
     chat.forEach((value) => {
       ref.doc(value.id).delete();
     });
-      window.location.replace("/");
+    navigate("/");
   };
 
   return (

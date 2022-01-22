@@ -13,6 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 function GoogleSignIn() {
+  const navigate = useNavigate();
   const { id } = useParams();
   const { signInWithGoogle, currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -27,29 +28,29 @@ function GoogleSignIn() {
     uname: "",
   });
 
-	const Addsession = () => {
-		var sessioncheck = true;
+  const Addsession = () => {
+    var sessioncheck = true;
 
-		ref1.onSnapshot((querySnapshot) => {
-			querySnapshot.forEach((doc) => {
-				if (currentUser) {
-					if (doc.data().uid === currentUser.email) {
-						sessioncheck = false;
-					}
-				}
-			});
+    ref1.onSnapshot((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (currentUser) {
+          if (doc.data().uid === currentUser.email) {
+            sessioncheck = false;
+          }
+        }
+      });
 
-			if (sessioncheck) {
-				var d = new Date();
+      if (sessioncheck) {
+        var d = new Date();
 
-				session.time = d.toLocaleString();
-				session.uid = currentUser.email;
-				session.uname = currentUser.displayName;
+        session.time = d.toLocaleString();
+        session.uid = currentUser.email;
+        session.uname = currentUser.displayName;
 
-				ref1.add(session);
-			}
-		});
-	};
+        ref1.add(session);
+      }
+    });
+  };
 
   const signInUser = () => {
     const userCollection = db.collection("users");
@@ -68,8 +69,8 @@ function GoogleSignIn() {
         Addsession();
         setLoading(true);
       }
-      if(id === "onboard"){
-        window.location.href = '/user/dash'
+      if (id === "onboard") {
+        navigate("/user/dash");
       }
     } else {
       setLoading(false);
@@ -82,7 +83,7 @@ function GoogleSignIn() {
         if (currentUser) {
           if (doc.data().uid === currentUser.email) {
             if (doc.data().cid) {
-              window.location.href = `/chat?id=${doc.id}`;
+              navigate(`/chat?id=${doc.id}`);
             }
           }
         }
