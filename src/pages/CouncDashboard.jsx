@@ -6,6 +6,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogOverlay,
 	Button,
+	Flex,
 	Grid,
 	GridItem,
 	VStack,
@@ -20,34 +21,34 @@ import { Switch } from "@chakra-ui/switch";
 
 const CouncDashboard = () => {
 	const [isOpen, setIsOpen] = useState(false);
-    const [optOut, setOptOut] = useState(false);
+	const [optOut, setOptOut] = useState(false);
 	const [chatSession, setChatSession] = useState({});
 	const onClose = () => setIsOpen(false);
 	const cancelRef = useRef();
-    
-    useEffect(() => {
-        if(!optOut){
-        const q = query(collection(db, "sessions"), where("cid", "==", ""));
-        onSnapshot(q, (snapshot) => {
-            snapshot.docChanges().forEach((change) => {
-                if (change.type === "added") {
-                    setIsOpen(true)
-					let temp = change.doc.data()
-					temp['session_id'] = change.doc.id
-					console.log(temp);
-					setChatSession(temp)
-                    // console.log('cid was ' + change.type, change.doc.data());
-                }else if(change.type === "removed"){
-					setIsOpen(false)
-				}    
-		});
-	})}
-    }, [optOut]);
 
-    useEffect(() => {
-      console.log(chatSession);
-    }, [chatSession]);
-    
+	useEffect(() => {
+		if (!optOut) {
+			const q = query(collection(db, "sessions"), where("cid", "==", ""));
+			onSnapshot(q, (snapshot) => {
+				snapshot.docChanges().forEach((change) => {
+					if (change.type === "added") {
+						setIsOpen(true);
+						let temp = change.doc.data();
+						temp["session_id"] = change.doc.id;
+						console.log(temp);
+						setChatSession(temp);
+						// console.log('cid was ' + change.type, change.doc.data());
+					} else if (change.type === "removed") {
+						setIsOpen(false);
+					}
+				});
+			});
+		}
+	}, [optOut]);
+
+	useEffect(() => {
+		console.log(chatSession);
+	}, [chatSession]);
 
 	return (
 		<>
@@ -59,7 +60,7 @@ const CouncDashboard = () => {
 			>
 				<AlertDialogOverlay>
 					<AlertDialogContent w="full">
-						<SosCard onClose={onClose} session={chatSession}/>
+						<SosCard onClose={onClose} session={chatSession} />
 					</AlertDialogContent>
 				</AlertDialogOverlay>
 			</AlertDialog>
@@ -72,13 +73,20 @@ const CouncDashboard = () => {
 				gap={5}
 			>
 				<GridItem rowSpan={1} colSpan={4}>
-					{/* <Button onClick={() => setIsOpen(!isOpen)}>Open</Button> */}
-                    <Button bgColor="red.100">
-									Emergency SOS
-									<Switch colorScheme="red" ml="5px" id="email-alerts" defaultChecked={false} onChange={() => setOptOut(!optOut)} />
-								</Button>
+					<Flex justifyContent="flex-end">
+						<Button bgColor="red.100">
+							Emergency SOS
+							<Switch
+								colorScheme="red"
+								ml="5px"
+								id="email-alerts"
+								defaultChecked={false}
+								onChange={() => setOptOut(!optOut)}
+							/>
+						</Button>
+					</Flex>
 				</GridItem>
-                
+
 				<GridItem rowSpan={1} colSpan={3}>
 					<Calander />
 				</GridItem>
