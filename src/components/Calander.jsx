@@ -57,8 +57,8 @@ const Calander = () => {
 				weekends={false}
 				selectable={true}
 				unselectAuto={false}
+				selectOverlap={false}
 				events={availableHours}
-				eventSources={}
 				select={(info) => {
 					setSelected((prev) => ({
 						...prev,
