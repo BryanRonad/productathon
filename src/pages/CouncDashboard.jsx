@@ -37,7 +37,9 @@ const CouncDashboard = () => {
 					console.log(temp);
 					setChatSession(temp)
                     // console.log('cid was ' + change.type, change.doc.data());
-                }     
+                }else if(change.type === "removed"){
+					setIsOpen(false)
+				}    
 		});
 	})}
     }, [optOut]);
