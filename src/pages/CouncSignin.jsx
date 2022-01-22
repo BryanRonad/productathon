@@ -13,9 +13,11 @@ const CouncSignin = () => {
     const counsellorCollection = db.collection("counsellors");
     signInWithGoogle()
       .then((user) => {
-        console.log(user.user.uid);
         counsellorCollection.doc(user.user.uid.toString()).set(
           {
+			fname:user.user.displayName.split(" ")[0],
+			lname:user.user.displayName.split(" ")[1],
+			email:user.user.email,
             isVerified: false,
             bio: "This is the bio",
             qualifications: ["MA", "PhD"],
