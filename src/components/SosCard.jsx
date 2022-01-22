@@ -17,11 +17,14 @@ const SosCard = ({ onClose, session }) => {
   const navigate = useNavigate();
   const { currentUser } = useAuth();
   const assignCid = async (session) => {
+    var date = new Date().toLocaleString();
     let session_id = session.session_id;
+
     let updatedSession = {
       ...session,
       cid: currentUser.email,
       cname: currentUser.displayName,
+      starttime: date
     };
     delete updatedSession.session_id;
     await setDoc(doc(db, "sessions", session_id), updatedSession);
