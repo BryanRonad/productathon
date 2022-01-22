@@ -93,7 +93,11 @@ const CouncDashboard = () => {
         </GridItem>
 
         <GridItem rowSpan={1} colSpan={3}>
-          <Calander isCounsellor={true} id={currentUser.uid} />
+          <Calander
+            isCounsellor={true}
+            id={currentUser.uid}
+            currentUser={currentUser}
+          />
         </GridItem>
         <GridItem rowSpan={1} colSpan={1} style={{ overflowY: "scroll" }}>
           <VStack>
