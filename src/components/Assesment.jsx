@@ -1,15 +1,8 @@
-import {
-	Box,
-	Button,
-	chakra,
-	Container,
-	Flex,
-	HStack,
-	Text,
-	useColorModeValue,
-} from "@chakra-ui/react";
+import { Button, Container, Flex, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 import AssesmentModal from "./AssesmentModal";
+import { BsArrowRightSquare } from "react-icons/bs";
+import { MdAssessment } from "react-icons/md";
 
 const Assesment = () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -21,11 +14,14 @@ const Assesment = () => {
 				<Flex
 					justifyContent="space-between"
 					mx="auto"
-					bg={useColorModeValue("white", "gray.800")}
+					bg="green.100"
 					shadow="lg"
 					rounded="lg"
 					overflow="hidden"
 				>
+					<Flex p={{ base: 4, md: 4 }}>
+						<MdAssessment size={50} />
+					</Flex>
 					<Flex
 						direction="column"
 						alignItems="flex-start"
@@ -39,7 +35,14 @@ const Assesment = () => {
 						</Text>
 					</Flex>
 					<Flex p={{ base: 4, md: 4 }}>
-						<Button onClick={() => setIsOpen(!isOpen)}>Take Assesment</Button>
+						<Button
+							colorScheme="teal"
+							rightIcon={<BsArrowRightSquare />}
+							mt={2}
+							onClick={() => setIsOpen(!isOpen)}
+						>
+							Take Assesment
+						</Button>
 					</Flex>
 				</Flex>
 				<AssesmentModal isOpen={isOpen} onClose={onClose} />
