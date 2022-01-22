@@ -18,7 +18,7 @@ const CouncSignin = () => {
 					bio: "This is the bio",
 					qualifications: ["MA", "PhD"],
 				});
-				navigate("/counsellor/dash");
+				navigate("/counsellor/verify");
 			})
 			.catch((error) => console.log(error));
 	};

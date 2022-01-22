@@ -47,23 +47,26 @@ const CouncDashboard = () => {
 	}, [optOut]);
 
 	useEffect(() => {
-		console.log(chatSession);
-	}, [chatSession]);
+		console.log(optOut);
+	}, [optOut]);
 
 	return (
 		<>
-			<AlertDialog
-				size="2xl"
-				isOpen={isOpen}
-				leastDestructiveRef={cancelRef}
-				onClose={onClose}
-			>
-				<AlertDialogOverlay>
-					<AlertDialogContent w="full">
-						<SosCard onClose={onClose} session={chatSession} />
-					</AlertDialogContent>
-				</AlertDialogOverlay>
-			</AlertDialog>
+			{optOut && (
+				<AlertDialog
+					size="2xl"
+					isOpen={isOpen}
+					leastDestructiveRef={cancelRef}
+					onClose={onClose}
+				>
+					<AlertDialogOverlay>
+						<AlertDialogContent w="full">
+							{" "}
+							<SosCard onClose={onClose} session={chatSession} />
+						</AlertDialogContent>
+					</AlertDialogOverlay>
+				</AlertDialog>
+			)}
 
 			<Grid
 				mt="50px"
@@ -75,7 +78,7 @@ const CouncDashboard = () => {
 				<GridItem rowSpan={1} colSpan={4}>
 					<Flex justifyContent="flex-end">
 						<Button bgColor="red.100">
-							Emergency SOS
+							Opt out of Emergency SOS
 							<Switch
 								colorScheme="red"
 								ml="5px"
