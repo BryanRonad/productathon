@@ -39,7 +39,7 @@ const HomePage = () => {
 							letterSpacing={{ base: "normal", md: "tight" }}
 							color={useColorModeValue("gray.900", "gray.100")}
 						>
-							All your{" "}
+							Get{" "}
 							<Text
 								display={{ base: "block", lg: "inline" }}
 								w="full"
@@ -47,7 +47,7 @@ const HomePage = () => {
 								bgGradient="linear(to-r, green.400,purple.500)"
 								fontWeight="extrabold"
 							>
-								customer feedback
+								happy place
 							</Text>{" "}
 							in one single place.
 						</chakra.h1>
@@ -79,7 +79,7 @@ const HomePage = () => {
 									size="lg"
 									cursor="pointer"
 								>
-									Paid side
+									Explore
 									<Icon
 										boxSize={4}
 										ml={1}
@@ -93,7 +93,7 @@ const HomePage = () => {
 							<Link to="/signup/free">
 								<Button
 									as="a"
-									colorScheme="gray"
+									colorScheme="red"
 									display="inline-flex"
 									alignItems="center"
 									justifyContent="center"
@@ -102,7 +102,7 @@ const HomePage = () => {
 									size="lg"
 									cursor="pointer"
 								>
-									Free/Emergency
+									Connect now
 									<Icon
 										boxSize={4}
 										ml={1}

@@ -25,12 +25,13 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { db } from "../utils/firebase-config";
 
 const CouncVerify = () => {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const ref = db.collection("counsellors").doc(currentUser.uid.toString());
   console.log(currentUser.uid.toString());
   const [verifypend, setVerifypend] = useState(false);
@@ -54,7 +55,7 @@ const CouncVerify = () => {
       if (currentUser) {
         if (doc.data().email === currentUser.email) {
           if (doc.data().isVerified) {
-            window.location.href = "/counsellor/dash";
+            navigate("/counsellor/dash");
           } else {
             setVerifypend(true);
             setData(doc.data());
@@ -75,15 +76,14 @@ const CouncVerify = () => {
 
       ref.onSnapshot((querySnapshot) => {
         querySnapshot.forEach((doc) => {
-            if (doc.data().email === currentUser.email) {
-              if (doc.data().isVerified) {
-                window.location.href = "/counsellor/dash";
-              } else {
-                setVerifypend(true);
-                setData(doc.data());
-              }
+          if (doc.data().email === currentUser.email) {
+            if (doc.data().isVerified) {
+              navigate("/counsellor/dash");
+            } else {
+              setVerifypend(true);
+              setData(doc.data());
             }
-
+          }
         });
       });
     }
