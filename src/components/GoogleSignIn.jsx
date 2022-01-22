@@ -8,7 +8,15 @@ function GoogleSignIn() {
   const { id } = useParams();
   const { signInWithGoogle, currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [alreadyreg, setAlreadyReg] = useState(false);
+  const [data, setData] = useState({
+    username: "",
+    email: "",
+    type: id,
+    meetings: [""],
+  });
   const ref1 = db.collection("sessions");
+  const ref = db.collection("users");
   const [session, setSession] = useState({
     cid: "",
     cname: "",
@@ -54,13 +62,32 @@ function GoogleSignIn() {
   };
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && id === "free") {
+      ref.onSnapshot((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (currentUser) {
+            if (doc.data().email === currentUser.email) {
+              setAlreadyReg(true);
+            }
+          }
+        });
+      });
+      
       Addsession();
       setLoading(true);
     } else {
       setLoading(false);
     }
   }, [currentUser]);
+
+  useEffect(async () => {
+    if (!alreadyreg && currentUser) {
+      data.username = currentUser.displayName;
+      data.email = currentUser.email;
+
+      await ref.add(data);
+    }
+  }, [alreadyreg]);
 
   useEffect(() => {
     ref1.onSnapshot((querySnapshot) => {
