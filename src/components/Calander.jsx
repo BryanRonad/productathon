@@ -48,8 +48,22 @@ const Calander = () => {
 			<FullCalendar
 				height="80vh"
 				plugins={[interactionPlugin, timeGridPlugin, dayGridPlugin]}
+				customButtons={{
+					clearButton: {
+						text: "Clear",
+						click: async () => {
+							const arrayRef = db
+								.collection("hours")
+								.doc(currentUser.uid.toString());
+
+							await arrayRef.update({
+								events: firebase.firestore.FieldValue.delete(),
+							});
+						},
+					},
+				}}
 				headerToolbar={{
-					left: "prev,next today",
+					left: "prev,next clearButton",
 					center: "title",
 					right: "dayGridMonth,timeGridWeek,timeGridDay",
 				}}
