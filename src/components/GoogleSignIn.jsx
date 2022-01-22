@@ -7,7 +7,6 @@ import SignInCard from "./SignInCard";
 import {
   Button,
   Container,
-  BeatLoader,
   CircularProgress,
   Center,
   Flex,
@@ -19,7 +18,6 @@ function GoogleSignIn() {
   const { id } = useParams();
   const { signInWithGoogle, currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
-  const [alreadyreg, setAlreadyReg] = useState(false);
   const ref1 = db.collection("sessions");
   const ref = db.collection("users");
   const [session, setSession] = useState({

@@ -1,7 +1,6 @@
-import { Button, chakra } from "@chakra-ui/react";
 import React from "react";
 import { db } from "../utils/firebase-config";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import SignInCard from "../components/SignInCard";
 
