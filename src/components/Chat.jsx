@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { db } from "../utils/firebase-config";
 import { useAuth } from "../context/AuthContext";
-import { Button, Container } from "@chakra-ui/react";
+import { Avatar, Button, Container, Wrap, WrapItem } from "@chakra-ui/react";
 import { useSearchParams } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
+import { GrSend } from "react-icons/gr";
+import { FaUserCircle } from "react-icons/fa";
 import "./Chat.css";
 
 const Chat = () => {
@@ -37,6 +39,8 @@ const Chat = () => {
         }
       });
       setchat(items);
+      var objDiv = document.querySelector(`.mainchat`);
+      objDiv.scrollTop = objDiv.scrollHeight;
     });
   }
 
@@ -59,7 +63,7 @@ const Chat = () => {
 
   function Deletechat(e) {
     e.preventDefault();
-    let id = e.currentTarget.parentElement.id;
+    let id = e.currentTarget.parentElement.parentElement.parentElement.id;
     ref.doc(id).delete();
   }
 
@@ -75,7 +79,7 @@ const Chat = () => {
     await ref.add(data);
     setData({
       sender: "",
-      receiver: "con1@gmail.com",
+      receiver: "",
       msg: "",
       time: "",
       session: curSession,
@@ -98,9 +102,20 @@ const Chat = () => {
   return (
     <>
       <div className="center">
-        <Container>
+        <Container
+          style={{
+            boxShadow: "0 5px 20px rgb(0 0 0 / 0.2)",
+            padding: 0,
+            width: "500px",
+          }}
+        >
           <div className="header">
-            {receiver}{" "}
+            <Wrap className="profile">
+              <WrapItem>
+                <Avatar name={receiver} />
+              </WrapItem>
+            </Wrap>
+            {receiver}
             <Button colorScheme="red" onClick={endsession}>
               End Session
             </Button>
@@ -112,12 +127,25 @@ const Chat = () => {
                   return (
                     <div className="chat_wrapper" key={data.id}>
                       <div id={data.id} className="your_msg">
-                        <h2>you</h2>
-                        <p>{data.msg}</p>
-                        <p>{data.time}</p>
-                        <button onClick={Deletechat}>
-                          <AiFillDelete />
-                        </button>
+                        <div className="y_details">
+                          <b className="yname">you</b>
+                          <p className="ymsg">{data.msg}</p>
+                          <div className="ytime">
+                            <p>{data.time}</p>
+                            <button
+                              color="red"
+                              style={{ fontSize: "15px", color: "red" }}
+                              onClick={Deletechat}
+                            >
+                              <AiFillDelete />
+                            </button>
+                          </div>
+                        </div>
+                        <Wrap className="profile">
+                          <WrapItem>
+                            <Avatar name={currentUser.displayName} />
+                          </WrapItem>
+                        </Wrap>
                       </div>
                     </div>
                   );
@@ -125,12 +153,18 @@ const Chat = () => {
                   return (
                     <div className="chat_wrapper" key={data.id}>
                       <div id={data.id} className="rec_msg">
-                        <h2>{data.sender}</h2>
-                        <p>{data.msg}</p>
-                        <b>{data.time}</b>
-                        <button onClick={Deletechat}>
-                          <AiFillDelete />
-                        </button>
+                        <Wrap className="profile">
+                          <WrapItem>
+                            <Avatar name={receiver} />
+                          </WrapItem>
+                        </Wrap>
+                        <div className="r_details">
+                          <b className="rname">{receiver}</b>
+                          <p className="rmsg">{data.msg}</p>
+                          <div className="ytime">
+                            <p >{data.time}</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
@@ -138,22 +172,28 @@ const Chat = () => {
               }
             })}
           </div>
-          <div className="type_msg">
+          <div className="footer">
             <input
               type="text"
               name="msg"
+              id="type_feild"
+              autoComplete={false}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   send(e);
                 }
               }}
-              placeholder="Type msg here..."
+              placeholder="Type message here..."
               value={data.msg}
               onChange={(e) => {
                 setData({ ...data, msg: e.currentTarget.value });
               }}
             />
-            <Button colorScheme="green" variant="solid">
+            <Button
+              colorScheme="green"
+              variant="solid"
+              leftIcon={<GrSend color="white" />}
+            >
               send
             </Button>
           </div>
