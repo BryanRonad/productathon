@@ -31,7 +31,8 @@ import { db } from "../utils/firebase-config";
 
 const CouncVerify = () => {
   const { currentUser } = useAuth();
-  const ref = db.collection("counsellors");
+  const ref = db.collection("counsellors").doc(currentUser.uid.toString());
+  console.log(currentUser.uid.toString());
   const [verifypend, setVerifypend] = useState(false);
 
   const [data, setData] = useState({
@@ -46,6 +47,21 @@ const CouncVerify = () => {
     zip: "",
     qualifications: ["MA", "PhD"],
     isVerified: false,
+  });
+
+  ref.onSnapshot((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      if (currentUser) {
+        if (doc.data().email === currentUser.email) {
+          if (doc.data().isVerified) {
+            window.location.href = "/counsellor/dash";
+          } else {
+            setVerifypend(true);
+            setData(doc.data());
+          }
+        }
+      }
+    });
   });
 
   useEffect(() => {
@@ -84,7 +100,7 @@ const CouncVerify = () => {
   };
 
   const SaveData = async () => {
-    await ref.add(data);
+    await ref.set(data);
     setVerifypend(true);
   };
 

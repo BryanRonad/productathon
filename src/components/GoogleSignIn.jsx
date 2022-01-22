@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useParams } from "react-router";
 import { db } from "../utils/firebase-config";
@@ -27,29 +27,29 @@ function GoogleSignIn() {
     uname: "",
   });
 
-  const Addsession = () => {
-    var sessioncheck = true;
+	const Addsession = () => {
+		var sessioncheck = true;
 
-    ref1.onSnapshot((querySnapshot) => {
-      querySnapshot.forEach((doc) => {
-        if (currentUser) {
-          if (doc.data().uid === currentUser.email) {
-            sessioncheck = false;
-          }
-        }
-      });
+		ref1.onSnapshot((querySnapshot) => {
+			querySnapshot.forEach((doc) => {
+				if (currentUser) {
+					if (doc.data().uid === currentUser.email) {
+						sessioncheck = false;
+					}
+				}
+			});
 
-      if (sessioncheck) {
-        var d = new Date();
+			if (sessioncheck) {
+				var d = new Date();
 
-        session.time = d.toLocaleString();
-        session.uid = currentUser.email;
-        session.uname = currentUser.displayName;
+				session.time = d.toLocaleString();
+				session.uid = currentUser.email;
+				session.uname = currentUser.displayName;
 
-        ref1.add(session);
-      }
-    });
-  };
+				ref1.add(session);
+			}
+		});
+	};
 
   const signInUser = () => {
     const userCollection = db.collection("users");
