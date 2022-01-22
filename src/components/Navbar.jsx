@@ -1,30 +1,31 @@
 import {
-  Button,
-  chakra,
-  Flex,
-  HStack,
-  Icon,
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  VisuallyHidden,
+	Button,
+	chakra,
+	Flex,
+	HStack,
+	Icon,
+	Menu,
+	MenuButton,
+	MenuItem,
+	MenuList,
+	Text,
+	VisuallyHidden,
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { BiPlusMedical } from "react-icons/bi";
+import { GiHeadbandKnot } from "react-icons/gi";
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  FormControl,
-  FormLabel,
-  useDisclosure,
+	Modal,
+	ModalOverlay,
+	ModalContent,
+	ModalHeader,
+	ModalFooter,
+	ModalBody,
+	ModalCloseButton,
+	FormControl,
+	FormLabel,
+	useDisclosure,
 } from "@chakra-ui/react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { AiFillProfile } from "react-icons/ai";
@@ -111,17 +112,17 @@ const Navbar = () => {
         ""
       )}
 
-      <chakra.header w="full" px={{ sm: 4 }} py={4} shadow="md">
-        <Flex alignItems="center" justifyContent="space-between" mx="auto">
-          <Flex>
-            <Link to="/">
-              <Icon as={BiPlusMedical} />
-              <VisuallyHidden>Mental-piece</VisuallyHidden>
-            </Link>
-            <chakra.h1 fontWeight="bold" ml="2">
-              Mental-piece xD
-            </chakra.h1>
-          </Flex>
+			<chakra.header w="full" px={{ sm: 4 }} py={4} shadow="md">
+				<Flex alignItems="center" justifyContent="space-between" mx="auto">
+					<Flex>
+						<Link to="/">
+							<GiHeadbandKnot size={30} />
+							<VisuallyHidden>Mental-piece</VisuallyHidden>
+						</Link>
+						<Text fontSize="xl" fontWeight="bold" ml="2">
+							MindAid
+						</Text>
+					</Flex>
 
           <HStack color="brand.500">
             {currentUser ? (
