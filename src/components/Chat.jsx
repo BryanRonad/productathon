@@ -14,7 +14,7 @@ const Chat = () => {
   const ref1 = db.collection("sessions");
   const [chat, setchat] = useState([]);
   const [receiver, setReceiver] = useState("");
-  const [rid,setrid] = useState("")
+  const [rid, setrid] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const session_id = searchParams.get("id");
   const [curSession, setcurSession] = useState(session_id);
@@ -25,11 +25,11 @@ const Chat = () => {
     msg: "",
     time: "",
     session: "",
-    timeindex:""
+    timeindex: "",
   });
 
   function getchats() {
-    ref.orderBy('timeindex').onSnapshot((querySnapshot) => {
+    ref.orderBy("timeindex").onSnapshot((querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
         if (currentUser) {
@@ -44,26 +44,27 @@ const Chat = () => {
       var objDiv = document.querySelector(`.mainchat`);
       objDiv.scrollTop = objDiv.scrollHeight;
     });
-  }
+  };
 
-  ref1
-    .doc(session_id)
-    .get()
-    .then((res) => {
-      if (currentUser) {
-        if (res.data()) {
-          if (res.data().uid === currentUser.email) {
-            setReceiver(res.data().cname);
-            setrid(res.data().cid)
-          } else {
-            setReceiver(res.data().uname);
-            setrid(res.data().uid)
+    ref1.onSnapshot((query)=>{
+      query.forEach((doc) => {
+        if(doc.id === session_id){
+          if (currentUser) {
+            if (doc.data()) {
+              if (doc.data().uid === currentUser.email) {
+                setReceiver(doc.data().cname);
+                setrid(doc.data().cid);
+              } else {
+                setReceiver(doc.data().uname);
+                setrid(doc.data().uid);
+              }
+            } else {
+              window.location.replace("/");
+            }
           }
-        } else {
-          window.location.replace("/");
         }
-      }
-    });
+      })
+    })
 
   function Deletechat(e) {
     e.preventDefault();
@@ -90,7 +91,7 @@ const Chat = () => {
       msg: "",
       time: "",
       session: curSession,
-      timeindex:""
+      timeindex: "",
     });
   };
 
@@ -98,13 +99,13 @@ const Chat = () => {
     getchats();
   }, [currentUser]);
 
-  const endsession = (e) => {
+  const endsession = async (e) => {
     e.preventDefault();
+    await ref1.doc(session_id).delete();
     chat.forEach((value) => {
       ref.doc(value.id).delete();
     });
-    ref1.doc(session_id).delete();
-    window.location.replace("/");
+      window.location.replace("/");
   };
 
   return (
@@ -170,7 +171,7 @@ const Chat = () => {
                           <b className="rname">{receiver}</b>
                           <p className="rmsg">{data.msg}</p>
                           <div className="ytime">
-                            <p >{data.time}</p>
+                            <p>{data.time}</p>
                           </div>
                         </div>
                       </div>
@@ -185,7 +186,6 @@ const Chat = () => {
               type="text"
               name="msg"
               id="type_feild"
-              autoComplete={false}
               onKeyPress={(e) => {
                 if (e.key === "Enter") {
                   send(e);
