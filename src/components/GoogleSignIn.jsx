@@ -68,6 +68,9 @@ function GoogleSignIn() {
         Addsession();
         setLoading(true);
       }
+      if(id === "onboard"){
+        window.location.href = '/user/dash'
+      }
     } else {
       setLoading(false);
     }

@@ -58,7 +58,6 @@ const Navbar = () => {
 
   return (
     <>
-	{console.log(data)}
       {currentUser ? (
         data.isVerified ? (
           <Modal isOpen={isOpen} onClose={onClose}>
@@ -112,9 +111,7 @@ const Navbar = () => {
           ""
         )
       ) : (
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <div>No Profile Yet</div>
-        </Modal>
+        ""
       )}
 
       <chakra.header w="full" px={{ sm: 4 }} py={4} shadow="md">
