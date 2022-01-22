@@ -14,6 +14,7 @@ const Chat = () => {
   const ref1 = db.collection("sessions");
   const [chat, setchat] = useState([]);
   const [receiver, setReceiver] = useState("");
+  const [rid,setrid] = useState("")
   const [searchParams, setSearchParams] = useSearchParams();
   const session_id = searchParams.get("id");
   const [curSession, setcurSession] = useState(session_id);
@@ -24,10 +25,11 @@ const Chat = () => {
     msg: "",
     time: "",
     session: "",
+    timeindex:""
   });
 
   function getchats() {
-    ref.onSnapshot((querySnapshot) => {
+    ref.orderBy('timeindex').onSnapshot((querySnapshot) => {
       const items = [];
       querySnapshot.forEach((doc) => {
         if (currentUser) {
@@ -52,8 +54,10 @@ const Chat = () => {
         if (res.data()) {
           if (res.data().uid === currentUser.email) {
             setReceiver(res.data().cname);
+            setrid(res.data().cid)
           } else {
             setReceiver(res.data().uname);
+            setrid(res.data().uid)
           }
         } else {
           window.location.replace("/");
@@ -75,6 +79,9 @@ const Chat = () => {
     data.time = d.toLocaleString();
     data.sender = currentUser.email;
     data.session = curSession;
+    data.receiver = rid;
+    const d1 = new Date();
+    data.timeindex = d1.getTime();
 
     await ref.add(data);
     setData({
@@ -83,6 +90,7 @@ const Chat = () => {
       msg: "",
       time: "",
       session: curSession,
+      timeindex:""
     });
   };
 
