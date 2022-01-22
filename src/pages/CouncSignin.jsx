@@ -15,10 +15,11 @@ const CouncSignin = () => {
 			.then((user) => {
 				console.log(user.user.uid);
 				counsellorCollection.doc(user.user.uid.toString()).set({
+					isVerified: false,
 					bio: "This is the bio",
 					qualifications: ["MA", "PhD"],
 				});
-				navigate("/counsellor/dash");
+				navigate("/counsellor/verify");
 			})
 			.catch((error) => console.log(error));
 	};
