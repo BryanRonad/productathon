@@ -113,7 +113,7 @@ const Chat = () => {
     });
     navigate("/");
   };
-  
+
   return (
     <>
       <div className="center">
