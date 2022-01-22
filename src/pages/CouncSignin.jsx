@@ -9,7 +9,7 @@ const CouncSignin = () => {
   const { signInWithGoogle } = useAuth();
   const navigate = useNavigate();
 
-  const signInCounsellor = () => {
+  const signIn = () => {
     const counsellorCollection = db.collection("counsellors");
     signInWithGoogle()
       .then((user) => {
@@ -29,7 +29,7 @@ const CouncSignin = () => {
 
   return (
     <>
-      <SignInCard signInCounsellor={signInCounsellor} />
+      <SignInCard signIn={signIn} />
     </>
   );
 };
