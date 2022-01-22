@@ -70,7 +70,7 @@ const HomePage = () => {
 							<Link to="/signup/onboard">
 								<Button
 									as="a"
-									colorScheme="gray"
+									bgColor="blue.100"
 									display="inline-flex"
 									alignItems="center"
 									justifyContent="center"

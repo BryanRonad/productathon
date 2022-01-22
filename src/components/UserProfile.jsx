@@ -1,107 +1,95 @@
 import {
-	Button,
 	Flex,
-	FormControl,
-	FormLabel,
-	Heading,
-	Input,
 	Stack,
 	useColorModeValue,
 	HStack,
 	Avatar,
-	AvatarBadge,
-	IconButton,
-	Center,
+	Icon,
+	chakra,
+	Divider,
+	Badge,
+	Button,
 } from "@chakra-ui/react";
 import React from "react";
-
-const UserProfile = () => {
+import { FaUserCircle } from "react-icons/fa";
+import { BsInfoCircle } from "react-icons/bs";
+import { SiGooglescholar } from "react-icons/si";
+import { AiOutlineMail } from "react-icons/ai";
+const UserProfile = ({ data }) => {
 	return (
 		<div>
-			<Flex
-				align={"center"}
-				justify={"center"}
-				bg={useColorModeValue("gray.50", "gray.800")}
-			>
+			<Flex align={"center"} justify={"center"}>
 				<Stack
 					spacing={4}
 					w={"full"}
 					maxW={"md"}
 					bg={useColorModeValue("white", "gray.700")}
 					rounded={"xl"}
-					boxShadow={"lg"}
 					p={6}
 					my={12}
 				>
-					<Heading lineHeight={1.1} fontSize={{ base: "2xl", sm: "3xl" }}>
-						User Profile Edit
-					</Heading>
-					<FormControl id="userName">
-						<FormLabel>User Icon</FormLabel>
-						<Stack direction={["column", "row"]} spacing={6}>
-							<Center>
-								<Avatar size="xl" src="https://bit.ly/sage-adebayo">
-									<AvatarBadge
-										as={IconButton}
-										size="sm"
-										rounded="full"
-										top="-10px"
-										colorScheme="red"
-										aria-label="remove Image"
-									/>
-								</Avatar>
-							</Center>
-							<Center w="full">
-								<Button w="full">Change Icon</Button>
-							</Center>
-						</Stack>
-					</FormControl>
-					<FormControl id="userName" isRequired>
-						<FormLabel>User name</FormLabel>
-						<Input
-							placeholder="UserName"
-							_placeholder={{ color: "gray.500" }}
-							type="text"
-						/>
-					</FormControl>
-					<FormControl id="email" isRequired>
-						<FormLabel>Email address</FormLabel>
-						<Input
-							placeholder="your-email@example.com"
-							_placeholder={{ color: "gray.500" }}
-							type="email"
-						/>
-					</FormControl>
-					<FormControl id="password" isRequired>
-						<FormLabel>Password</FormLabel>
-						<Input
-							placeholder="password"
-							_placeholder={{ color: "gray.500" }}
-							type="password"
-						/>
-					</FormControl>
-					<Stack spacing={6} direction={["column", "row"]}>
-						<Button
-							bg={"red.400"}
-							color={"white"}
-							w="full"
-							_hover={{
-								bg: "red.500",
-							}}
+					<Flex direction="column" alignItems="flex-start">
+						<Flex
+							direction="row"
+							justifyContent="flex-start"
+							alignItems="center"
 						>
-							Cancel
-						</Button>
-						<Button
-							bg={"blue.400"}
-							color={"white"}
-							w="full"
-							_hover={{
-								bg: "blue.500",
-							}}
+							<Avatar size="xl"></Avatar>
+							<Button size="md" ml={5}>
+								Change Profile Picture
+							</Button>
+						</Flex>
+						<Divider mt={5} />
+						<Flex
+							alignItems="center"
+							mt={4}
+							color={useColorModeValue("gray.700", "gray.200")}
 						>
-							Submit
-						</Button>
-					</Stack>
+							<Icon as={FaUserCircle} h={6} w={6} mr={2} />
+
+							<chakra.h1 px={2} fontSize="sm">
+								{data.fname + " " + data.lname}
+							</chakra.h1>
+						</Flex>
+						<Flex
+							alignItems="center"
+							mt={4}
+							color={useColorModeValue("gray.700", "gray.200")}
+						>
+							<Icon as={AiOutlineMail} h={6} w={6} mr={2} />
+
+							<chakra.h1 px={2} fontSize="sm">
+								{data.email}
+							</chakra.h1>
+						</Flex>
+						<Flex
+							alignItems="center"
+							mt={4}
+							color={useColorModeValue("gray.700", "gray.200")}
+						>
+							<Icon as={BsInfoCircle} h={6} w={6} mr={2} />
+
+							<chakra.h1 px={2} fontSize="sm">
+								Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
+								iusto? Optio odio quibusdam quo ducimus? Incidunt nihil
+								laudantium vel ex illo enim nisi dolorum. Dolore, tenetur!
+								Minima cumque illo deserunt.
+							</chakra.h1>
+						</Flex>
+						<Flex
+							alignItems="center"
+							mt={4}
+							color={useColorModeValue("gray.700", "gray.200")}
+						>
+							<Icon as={SiGooglescholar} h={6} w={6} mr={2} />
+
+							<HStack direction="row">
+								<Badge colorScheme="green">PHD</Badge>
+								<Badge colorScheme="red">MCOM</Badge>
+								<Badge colorScheme="purple">BCOM</Badge>
+							</HStack>
+						</Flex>
+					</Flex>
 				</Stack>
 			</Flex>
 		</div>

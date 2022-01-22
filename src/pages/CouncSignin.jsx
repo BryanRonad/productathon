@@ -24,6 +24,7 @@ const CouncSignin = () => {
           },
           { merge: true }
         );
+        
         navigate("/counsellor/verify");
       })
       .catch((error) => console.log(error));
