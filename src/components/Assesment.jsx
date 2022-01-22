@@ -8,9 +8,13 @@ import {
 	Text,
 	useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from "react";
+import AssesmentModal from "./AssesmentModal";
 
 const Assesment = () => {
+	const [isOpen, setIsOpen] = useState(false);
+	const onClose = () => setIsOpen(false);
+
 	return (
 		<>
 			<Container maxW="container.lg">
@@ -35,9 +39,10 @@ const Assesment = () => {
 						</Text>
 					</Flex>
 					<Flex p={{ base: 4, md: 4 }}>
-						<Button>Take Assesment</Button>
+						<Button onClick={() => setIsOpen(!isOpen)}>Take Assesment</Button>
 					</Flex>
 				</Flex>
+				<AssesmentModal isOpen={isOpen} onClose={onClose} />
 			</Container>
 		</>
 	);
