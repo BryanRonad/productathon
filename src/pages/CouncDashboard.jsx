@@ -6,6 +6,7 @@ import {
 	AlertDialogHeader,
 	AlertDialogOverlay,
 	Button,
+	Divider,
 	Flex,
 	Grid,
 	GridItem,
@@ -94,6 +95,7 @@ const CouncDashboard = () => {
 							/>
 						</Button>
 					</Flex>
+					<Divider mt={5} />
 				</GridItem>
 
 				<GridItem shadow="lg" rounded="md" rowSpan={1} colSpan={3} p={5} bg="">
