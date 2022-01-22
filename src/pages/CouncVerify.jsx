@@ -50,21 +50,6 @@ const CouncVerify = () => {
     isVerified: false,
   });
 
-  ref.onSnapshot((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      if (currentUser) {
-        if (doc.data().email === currentUser.email) {
-          if (doc.data().isVerified) {
-            navigate("/counsellor/dash");
-          } else {
-            setVerifypend(true);
-            setData(doc.data());
-          }
-        }
-      }
-    });
-  });
-
   useEffect(() => {
     if (currentUser) {
       setData({
@@ -102,6 +87,7 @@ const CouncVerify = () => {
   const SaveData = async () => {
     await ref.set(data);
     setVerifypend(true);
+    navigate("/counsellor/dash");
   };
 
   return (
