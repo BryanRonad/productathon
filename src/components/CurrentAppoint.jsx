@@ -11,13 +11,15 @@ import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase-config";
 import { useAuth } from "../context/AuthContext";
-import { setDoc } from "firebase/firestore";
+import { doc,setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const CurrentAppoint = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
-  const getCurrentUrl = async () => {
+
+  const getCurrentUrl = async (e) => {
+	  e.preventDefault();
     const querySnapshot = await getDocs(collection(db, "paid"));
 
     querySnapshot.forEach(async (docref) => {
