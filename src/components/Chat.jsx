@@ -5,9 +5,9 @@ import { Avatar, Button, Container, Wrap, WrapItem } from "@chakra-ui/react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import { GrSend } from "react-icons/gr";
-import { FaUserCircle } from "react-icons/fa";
+// import { FaUserCircle } from "react-icons/fa";
 import { doc, setDoc } from "firebase/firestore";
-import { collection, onSnapshot, query, where } from "@firebase/firestore";
+// import { collection, onSnapshot, query, where } from "@firebase/firestore";
 import "./Chat.css";
 
 const Chat = () => {
@@ -20,7 +20,7 @@ const Chat = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const session_id = searchParams.get("id");
   const session_type = searchParams.get("type");
-  const ref1 = db.collection((session_type === "free" ? "sessions": "paid"));
+  const ref1 = db.collection(session_type === "free" ? "sessions" : "paid");
   const [curSession, setcurSession] = useState(session_id);
 
   const [data, setData] = useState({

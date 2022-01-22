@@ -10,7 +10,7 @@ import firebase from "firebase/compat/app";
 import { doc, getDoc } from "firebase/firestore";
 import { useEvent } from "../context/EventContext";
 
-const Calander = ({ isCounsellor, id, currentuser }) => {
+const Calander = ({ isCounsellor, id }) => {
   const { currentUser } = useAuth();
   const { setScheduledEvents } = useEvent();
   const [selected, setSelected] = useState({});
