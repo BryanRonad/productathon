@@ -22,18 +22,17 @@ const CurrentAppoint = () => {
   const getCurrentUrl = async () => {
     const querySnapshot = await getDocs(collection(db, "paid"));
 
-    querySnapshot.forEach(async (doc) => {
+    querySnapshot.forEach(async (docref) => {
       if (currentUser) {
-        if (doc.data().uid === currentUser.uid.toString()) {
-          let updatedSession = {
-            uname: currentUser.displayName,
-          };
-          await setDoc(doc(db, "paid", doc.id), updatedSession);
-          navigate(`/chat?id=${doc.id}&type=paid`);
+        if (docref.data().uid === currentUser.uid.toString()) {
+
+          await setDoc(doc(db, "paid", docref.id), {...docref.data(),uname: currentUser.displayName},{
+            merge: true,
+          });
+
+          navigate(`/chat?id=${docref.id}&type=paid`);
         }
       }
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
     });
   };
 
