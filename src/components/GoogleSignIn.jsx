@@ -40,6 +40,7 @@ function GoogleSignIn() {
 				if (currentUser) {
 					if (doc.data().uid === currentUser.email) {
 						sessioncheck = false;
+        navigate("/");
 					}
 				}
 			});

@@ -84,7 +84,7 @@ const Chat = () => {
       query.forEach((doc) => {
         if (doc.id === session_id) {
           if (currentUser) {
-            if (doc.data()) {
+            if (doc.data() && !doc.data().endtime ) {
               if (doc.data().uid === currentUser.email) {
                 setReceiver(doc.data().cname);
                 setrid(doc.data().cid);
@@ -113,10 +113,13 @@ const Chat = () => {
   };
 
   useEffect(() => {
+    console.log("hmm")
     const q = query(collection(db, "sessions"), where("end", "!=", null));
     onSnapshot(q, (snapshot) => {
+    console.log("hmm2")
       snapshot.docChanges().forEach((change) => {
         if (change.type === "added") {
+          console.log("ygasyfasf")
           navigate("/");
         }
       });
