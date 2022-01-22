@@ -28,7 +28,7 @@ const SosCard = ({ onClose, session }) => {
     };
     delete updatedSession.session_id;
     await setDoc(doc(db, "sessions", session_id), updatedSession);
-    navigate(`/chat?id=${session_id}`);
+    navigate(`/chat?id=${session_id}&type=free`);
   };
 
   return (

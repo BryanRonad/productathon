@@ -91,7 +91,7 @@ function GoogleSignIn() {
         if (currentUser) {
           if (doc.data().uid === currentUser.email) {
             if (doc.data().cid) {
-              navigate(`/chat?id=${doc.id}`);
+              navigate(`/chat?id=${doc.id}&type=free`);
             }
           }
         }

@@ -14,12 +14,13 @@ const Chat = () => {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   const ref = db.collection("messages");
-  const ref1 = db.collection("sessions");
   const [chat, setchat] = useState([]);
   const [receiver, setReceiver] = useState("");
   const [rid, setrid] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const session_id = searchParams.get("id");
+  const session_type = searchParams.get("type");
+  const ref1 = db.collection((session_type === "free" ? "sessions": "paid"));
   const [curSession, setcurSession] = useState(session_id);
 
   const [data, setData] = useState({
