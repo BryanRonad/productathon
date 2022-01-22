@@ -3,18 +3,20 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useParams } from "react-router";
 import { db } from "../utils/firebase-config";
+import SignInCard from "./SignInCard";
+import {
+  Button,
+  Container,
+  BeatLoader,
+  CircularProgress,
+  Center,
+} from "@chakra-ui/react";
 
 function GoogleSignIn() {
   const { id } = useParams();
   const { signInWithGoogle, currentUser } = useAuth();
   const [loading, setLoading] = useState(false);
   const [alreadyreg, setAlreadyReg] = useState(false);
-  const [data, setData] = useState({
-    username: "",
-    email: "",
-    type: id,
-    meetings: [""],
-  });
   const ref1 = db.collection("sessions");
   const ref = db.collection("users");
   const [session, setSession] = useState({
@@ -53,7 +55,6 @@ function GoogleSignIn() {
     const userCollection = db.collection("users");
     signInWithGoogle()
       .then((user) => {
-        console.log(user.user.uid);
         userCollection.doc(user.user.uid.toString()).set({
           type: id,
         });
@@ -62,32 +63,15 @@ function GoogleSignIn() {
   };
 
   useEffect(() => {
-    if (currentUser && id === "free") {
-      ref.onSnapshot((querySnapshot) => {
-        querySnapshot.forEach((doc) => {
-          if (currentUser) {
-            if (doc.data().email === currentUser.email) {
-              setAlreadyReg(true);
-            }
-          }
-        });
-      });
-      
-      Addsession();
-      setLoading(true);
+    if (currentUser) {
+      if (id === "free") {
+        Addsession();
+        setLoading(true);
+      }
     } else {
       setLoading(false);
     }
   }, [currentUser]);
-
-  useEffect(async () => {
-    if (!alreadyreg && currentUser) {
-      data.username = currentUser.displayName;
-      data.email = currentUser.email;
-
-      await ref.add(data);
-    }
-  }, [alreadyreg]);
 
   useEffect(() => {
     ref1.onSnapshot((querySnapshot) => {
@@ -106,12 +90,29 @@ function GoogleSignIn() {
   return (
     <div>
       {loading ? (
-        "waiting for counsellor"
+        <Container style={{ marginTop: "100px", padding: 0 }}>
+          <img
+            src="https://i.pinimg.com/originals/d5/a2/b0/d5a2b01b8294bfb8678d67342b106795.gif"
+            style={{ margin: 0 }}
+          />
+          <Center bg="tomato" h="100px" color="white" fontSize={25}>
+            <CircularProgress
+              isIndeterminate
+              color="blue.300"
+              marginRight={10}
+            />
+            Waiting for Councellor
+          </Center>
+        </Container>
       ) : (
-        <button onClick={signInUser}>Sign in {id}</button>
+        <SignInCard signIn={signInUser} />
       )}
     </div>
   );
 }
 
 export default GoogleSignIn;
+
+{
+  /*  */
+}
