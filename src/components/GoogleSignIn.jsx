@@ -28,6 +28,8 @@ function GoogleSignIn() {
 		time: "",
 		uid: "",
 		uname: "",
+    starttime:"",
+    endtime:null
 	});
 
 	const Addsession = () => {

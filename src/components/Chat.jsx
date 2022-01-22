@@ -6,6 +6,7 @@ import { useSearchParams, useNavigate } from "react-router-dom";
 import { AiFillDelete } from "react-icons/ai";
 import { GrSend } from "react-icons/gr";
 import { FaUserCircle } from "react-icons/fa";
+import { doc, setDoc } from "firebase/firestore";
 import "./Chat.css";
 
 const Chat = () => {
@@ -47,26 +48,6 @@ const Chat = () => {
     });
   }
 
-  ref1.onSnapshot((query) => {
-    query.forEach((doc) => {
-      if (doc.id === session_id) {
-        if (currentUser) {
-          if (doc.data()) {
-            if (doc.data().uid === currentUser.email) {
-              setReceiver(doc.data().cname);
-              setrid(doc.data().cid);
-            } else {
-              setReceiver(doc.data().uname);
-              setrid(doc.data().uid);
-            }
-          } else {
-            navigate("/");
-          }
-        }
-      }
-    });
-  });
-
   function Deletechat(e) {
     e.preventDefault();
     let id = e.currentTarget.parentElement.parentElement.parentElement.id;
@@ -98,17 +79,48 @@ const Chat = () => {
 
   useEffect(() => {
     getchats();
+    ref1.onSnapshot((query) => {
+      query.forEach((doc) => {
+        if (doc.id === session_id) {
+          if (currentUser) {
+            if (doc.data()) {
+              if (doc.data().uid === currentUser.email) {
+                setReceiver(doc.data().cname);
+                setrid(doc.data().cid);
+              } else {
+                setReceiver(doc.data().uname);
+                setrid(doc.data().uid);
+              }
+            } else {
+              navigate("/");
+            }
+          }
+        }
+      });
+    });
   }, [currentUser]);
 
   const endsession = async (e) => {
     e.preventDefault();
-    await ref1.doc(session_id).delete();
+    var d = new Date();
+    const sessionRef = doc(db, "sessions", session_id);
+    setDoc(sessionRef, { endtime: d.toLocaleString() }, { merge: true });
     chat.forEach((value) => {
       ref.doc(value.id).delete();
     });
     navigate("/");
   };
 
+  useEffect(() => {
+    const q = query(collection(db, "sessions"), where("end", "!=", null));
+    onSnapshot(q, (snapshot) => {
+      snapshot.docChanges().forEach((change) => {
+        if (change.type === "added") {
+          navigate("/");
+        }
+      });
+    });
+  }, [ref1]);
   return (
     <>
       <div className="center">
