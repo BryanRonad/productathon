@@ -17,7 +17,7 @@ const Chat = () => {
   const [chat, setchat] = useState([]);
   const [receiver, setReceiver] = useState("");
   const [rid, setrid] = useState("");
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const session_id = searchParams.get("id");
   const session_type = searchParams.get("type");
   const ref1 = db.collection(session_type === "free" ? "sessions" : "paid");
@@ -87,7 +87,10 @@ const Chat = () => {
         if (doc.id === session_id) {
           if (currentUser) {
             if (doc.data() && !doc.data().endtime) {
-              if (doc.data().uid === currentUser.email || doc.data().uid === currentUser.uid) {
+              if (
+                doc.data().uid === currentUser.email ||
+                doc.data().uid === currentUser.uid
+              ) {
                 setReceiver(doc.data().cname);
                 setrid(doc.data().cid);
               } else {
@@ -106,7 +109,11 @@ const Chat = () => {
   const endsession = async (e) => {
     e.preventDefault();
     var d = new Date();
-    const sessionRef = doc(db, (session_type === "free" ? "sessions" : "paid"), session_id);
+    const sessionRef = doc(
+      db,
+      session_type === "free" ? "sessions" : "paid",
+      session_id
+    );
     setDoc(sessionRef, { endtime: d.toLocaleString() }, { merge: true });
     chat.forEach((value) => {
       ref.doc(value.id).delete();

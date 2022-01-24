@@ -11,7 +11,7 @@ import React from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../utils/firebase-config";
 import { useAuth } from "../context/AuthContext";
-import { doc,setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 
 const CurrentAppoint = () => {
@@ -19,16 +19,19 @@ const CurrentAppoint = () => {
   const navigate = useNavigate();
 
   const getCurrentUrl = async (e) => {
-	  e.preventDefault();
+    e.preventDefault();
     const querySnapshot = await getDocs(collection(db, "paid"));
 
     querySnapshot.forEach(async (docref) => {
       if (currentUser) {
         if (docref.data().uid === currentUser.uid.toString()) {
-
-          await setDoc(doc(db, "paid", docref.id), {...docref.data(),uname: currentUser.displayName},{
-            merge: true,
-          });
+          await setDoc(
+            doc(db, "paid", docref.id),
+            { ...docref.data(), uname: currentUser.displayName },
+            {
+              merge: true,
+            }
+          );
 
           navigate(`/chat?id=${docref.id}&type=paid`);
         }

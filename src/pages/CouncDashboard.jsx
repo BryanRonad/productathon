@@ -82,7 +82,7 @@ const CouncDashboard = () => {
         <GridItem rowSpan={1} colSpan={4}>
           <Flex justifyContent="flex-end">
             <Button bgColor="red.100">
-              Opt out of Emergency SOS
+              Emergency SOS
               <Switch
                 colorScheme="red"
                 ml="5px"

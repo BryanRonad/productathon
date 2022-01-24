@@ -24,7 +24,7 @@ const SosCard = ({ onClose, session }) => {
       ...session,
       cid: currentUser.email,
       cname: currentUser.displayName,
-      starttime: date
+      starttime: date,
     };
     delete updatedSession.session_id;
     await setDoc(doc(db, "sessions", session_id), updatedSession);
@@ -66,14 +66,14 @@ const SosCard = ({ onClose, session }) => {
             fontSize="sm"
             color={useColorModeValue("gray.600", "gray.400")}
           >
-            username:{session.uname}
+            Username: {session.uname}
           </chakra.p>
           <chakra.p
             mt={2}
             fontSize="sm"
             color={useColorModeValue("gray.600", "gray.400")}
           >
-            waiting from:{session.time}
+            Waiting since: {session.time}
           </chakra.p>
         </Box>
         <Box w={2 / 3} p={{ base: 4, md: 8 }}>
